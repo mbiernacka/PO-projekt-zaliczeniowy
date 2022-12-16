@@ -1,1 +1,7 @@
+<<<<<<< HEAD
 kot kot lampa.
+=======
+asd
+asdasdasd
+Dcxcxxc
+>>>>>>> e878ef421c973a91666ae584c59c406b5a91bd5f
