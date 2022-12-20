@@ -9,7 +9,13 @@ public class Animal {
     private Vector2d position;
     private final IWorldMap map;
     private Genotype genotype; //nowa klasa
-    private Energy energy; //czy to nowa klasa? ja jestem za tym, żeby zrobić to jako nową, bo w sumie to straszny chaos się w animal zroobi
+    private int energy;
+    /*
+    zwiększanie energi po jedzeniu
+    sprawdzanbie czyt nie umarło
+    mniejszanie(int)
+    get energy
+     */
     //private final List<IPositionChangeObserver> observerList;
     public Animal (IWorldMap map){
         this(map, new Vector2d(2,2));

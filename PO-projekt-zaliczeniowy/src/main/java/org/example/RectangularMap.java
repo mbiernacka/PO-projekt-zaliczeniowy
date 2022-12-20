@@ -19,14 +19,14 @@ public class RectangularMap extends AbstractWorldMap {
         lowerBound = new Vector2d(0,0);
     }
 
-    public boolean canMoveTo(Vector2d position){
+//    public boolean canMoveTo(Vector2d position){
 //        if(position.follows(lowerBound) && position.precedes(upperBound) && (isOccupied(position)==false)){
 //            return true;
 //        };
 //        return false;
         // w sumie to zawsze jeśli pole nie jest zjęcte można się ruszyć, dopiero po ruchu mogą dziać się różne rzeczy
-        return (isOccupied(position)==false);
-    }
+
+//    }
 
     public boolean isOccupied(Vector2d position) {
         return objectAt(position) != null;

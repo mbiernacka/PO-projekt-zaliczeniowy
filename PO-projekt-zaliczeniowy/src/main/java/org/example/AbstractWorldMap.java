@@ -23,7 +23,7 @@ public abstract class AbstractWorldMap implements IWorldMap{
     }
 
     public String toString(){
-        return " ";//mapVisualizer.draw(calculateLowerBound(), calculateUpperBound());
+        return mapVisualizer.draw(calculateLowerBound(), calculateUpperBound());
     }
 
     public Object objectAt(Vector2d position){
