@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.interfaces.IWorldMap;
+
 import java.util.Objects;
 
 public class Animal {
@@ -7,7 +9,7 @@ public class Animal {
     private Vector2d position;
     private final IWorldMap map;
     private Genotype genotype; //nowa klasa
-    private Energy energy; //czy to nowa klasa?
+    private Energy energy; //czy to nowa klasa? ja jestem za tym, żeby zrobić to jako nową, bo w sumie to straszny chaos się w animal zroobi
     //private final List<IPositionChangeObserver> observerList;
     public Animal (IWorldMap map){
         this(map, new Vector2d(2,2));

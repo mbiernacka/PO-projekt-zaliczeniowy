@@ -61,4 +61,5 @@ enum MapDirection {
             case SOUTHWEST -> new Vector2d(-1, -1);
         };
     }
+}
 
