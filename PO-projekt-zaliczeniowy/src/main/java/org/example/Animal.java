@@ -17,10 +17,10 @@ public class Animal {
     get energy
      */
     //private final List<IPositionChangeObserver> observerList;
+
     public Animal (IWorldMap map){
         this(map, new Vector2d(2,2));
     }
-    private int order;
 
     public Animal(IWorldMap map, Vector2d initialPosition){
         this.orientation = MapDirection.NORTH;
@@ -38,6 +38,18 @@ public class Animal {
         return position;
     }
 
+    public int getEnergy(){
+        return this.energy;
+    }
+
+    public void eat(int value){
+        if (!isDead()){
+            this.energy += value;
+        }
+    }
+    public boolean isDead(){
+        return this.energy <= 0;
+    }
 
     @Override
     public String toString() {
@@ -57,26 +69,19 @@ public class Animal {
         return Objects.equals(this.position, position);
     }
 
-
-    public void move(MoveDirection direction){
-        Vector2d move = new Vector2d(0,0);
-        MapDirection newOrientation = this.orientation;
-        switch(direction){
-            case LEFT -> newOrientation = newOrientation.previous();
-            case RIGHT -> newOrientation = newOrientation.next();
-            case BACKWARD -> move = this.orientation.toUnitVector().opposite();
-            case FORWARD -> move = this.orientation.toUnitVector();
-        }
-
-        Vector2d newPosition = this.position.add(move);
-
-        this.orientation = newOrientation;
-
-        if(this.map.canMoveTo(newPosition)){
-            this.positionChanged(this.position, newPosition);
-            this.position =  newPosition;
-        }
+    public void move(int gene){
+         MapDirection newOrientation = this.orientation;
+         int i = 0;
+         while (i < gene){
+             newOrientation = newOrientation.next();
+             i++;
+         }
+         this.orientation = newOrientation;
+         this.position = this.position.add(this.orientation.toUnitVector());
+        System.out.println(this.position.toString());
+        System.out.println(newOrientation.toString());
     }
+
 
 //    public void addObserver(IPositionChangeObserver observer){
 //        this.observerList.add(observer);
