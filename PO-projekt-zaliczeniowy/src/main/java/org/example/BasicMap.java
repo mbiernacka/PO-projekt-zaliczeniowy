@@ -2,77 +2,73 @@ package org.example;
 
 import java.lang.Math;
 import java.util.HashMap;
+import java.util.Random;
 
 public class BasicMap extends AbstractWorldMap {
+    private int grassAmount;
     private HashMap<Vector2d, Plant> grassMap;
-    public final MapBoundary mapBoundary;
-//new v1
-//    public BasicMap(int grassAmount){
-//        this.grassMap = new HashMap<>();
-//        this.mapBoundary = new MapBoundary();
-//        int min = 0;
-//        int max = (int)(Math.sqrt(10*grassAmount));
-//
-//        for (int i = 0; i < grassAmount; i++){
-//            int x,y;
-//            for (int k = mapBoundary.getUpperRight().x/2; k < mapBoundary.getUpperRight().x; k++) {
-//                y =k;
-//
-//
-//            for (int j = mapBoundary.getUpperRight().x/2; j < mapBoundary.getUpperRight().x; j++) {
-//                x=  j%2==0 ? j : -j;
-//                Vector2d newGrassPosition = new Vector2d(x,y);
-//
-//                int repeats = 0;
-//                if(this.grassMap.containsKey(newGrassPosition)){
-//                    i--;
-//                    repeats++;
-//                }
-//                if(repeats == 0){
-//                    grassMap.put(newGrassPosition, new Plant(newGrassPosition));
-//                    mapBoundary.place(newGrassPosition);
-//                }
-//                x=  j%2==0 ? -j : j;
-//                // to będzie można ładniej zrobic
-//                 newGrassPosition = new Vector2d(x,y);
-//
-//                 repeats = 0;
-//                if(this.grassMap.containsKey(newGrassPosition)){
-//                    i--;
-//                    repeats++;
-//                }
-//                if(repeats == 0){
-//                    grassMap.put(newGrassPosition, new Plant(newGrassPosition));
-//                    mapBoundary.place(newGrassPosition);
-//                }
-//
-//            }
-//            }
-//        }
-//    }
+    public MapBoundary mapBoundary;
+
 //new v2
-    public BasicMap(int grassAmount){
+
+    public BasicMap(int grassAmount, MapBoundary mb){
+        this.grassAmount =grassAmount;
+        this.grassMap = new HashMap<>();
+        this.mapBoundary = mb;
+        Random r = new Random();
+        int randomNum;
+        for (int i = 0; i < grassAmount; i++) {
+
+            if((int)(1+Math.random() * 10) <8){
+                centerPlant();
+           }else{
+                randomPlant();
+            }
+
+        }
+    }
+
+    protected void randomPlant(){
         this.grassMap = new HashMap<>();
         this.mapBoundary = new MapBoundary();
+        int min = 0;
+        int max = (int)(Math.sqrt(10*grassAmount));
 
+        for (int i = 0; i < grassAmount; i++){
+            int x = (int) ((Math.random() * (max - min + 1)) + min);
+            int y = (int) ((Math.random() * (max - min + 1)) + min);
+            Vector2d newGrassPosition = new Vector2d(x,y);
+
+            int repeats = 0;
+            if(this.grassMap.containsKey(newGrassPosition)){
+                i--;
+                repeats++;
+            }
+            if(repeats == 0){
+                grassMap.put(newGrassPosition, new Plant(newGrassPosition));
+                mapBoundary.place(newGrassPosition);
+            }
+        }
+    }
+
+    protected void centerPlant(){
         int centerX = 10;
-        int centerY = 10;
-        int radius = 3;
-
-        for (int y = centerY - radius; y <= centerY + radius; y++) {
-            for (int x = centerX - radius; x <= centerX + radius; x++) {
+        int centerY = 7;
+        int radiusX =7;
+        int radiusY = 2;
+        //spr pozycji
+        for (int y = centerY-2 ; y <= centerY+radiusY ; y++) {
+            for (int x = centerX - radiusX; x <= centerX + radiusX; x++) {
 
                 if(grassAmount > 0){
                     grassAmount--;
-                Vector2d newGrassPosition = new Vector2d(x,y);
-                grassMap.put(newGrassPosition, new Plant(newGrassPosition));
-                mapBoundary.place(newGrassPosition);
+                    Vector2d newGrassPosition = new Vector2d(x,y);
+                    grassMap.put(newGrassPosition, new Plant(newGrassPosition));
+                    mapBoundary.place(newGrassPosition);
                 }else {mapBoundary.place(new Vector2d(x,y));}
             }
         }
-
-        }
-
+    }
 
 
     @Override

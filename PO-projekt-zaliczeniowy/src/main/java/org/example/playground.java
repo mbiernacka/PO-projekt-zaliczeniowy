@@ -17,3 +17,15 @@ for (int y = centerY - radius; y <= centerY + radius; y++) {
 
 }
 }
+/*
+ocena:
+- czy działa
+- czy ma wszystkie funkcje
+- archutektura
+- clean code
+-obsługa błędów
+-mile widziane:
+testy
+...
+
+ */

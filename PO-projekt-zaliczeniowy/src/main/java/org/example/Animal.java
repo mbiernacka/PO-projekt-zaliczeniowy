@@ -26,6 +26,7 @@ public class Animal {
         this.orientation = MapDirection.NORTH;
         this.position = initialPosition;
         this.map = map;
+        map.place(this);
         //this.observerList = new ArrayList<>();
     }
 

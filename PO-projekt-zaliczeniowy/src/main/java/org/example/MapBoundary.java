@@ -41,5 +41,8 @@ public class MapBoundary implements IPositionChangeObserver {
         Vector2d yRes = ySet.last();
         return xRes.upperRight(yRes);
     }
+    public Vector2d verifyMove(Vector2d vector2d){
+        return null;
+    }
 }
 
