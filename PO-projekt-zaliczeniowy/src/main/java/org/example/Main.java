@@ -9,7 +9,9 @@ public class Main {
         System.out.println(map);
         Animal animal1 = new Animal(map, new Vector2d(2, 2));
         animal1.move(3);
-        animal1.move(0);
+        animal1.move(4);
+        map.place(new Animal(map, new Vector2d(8,1)));
+        System.out.println(map);
 
     }
 }

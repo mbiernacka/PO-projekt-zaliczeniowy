@@ -12,15 +12,6 @@ public abstract class AbstractWorldMap implements IWorldMap{
         this.mapVisualizer = new MapVisualizer(this);
     }
 
-//    public void place(Animal animal) throws IllegalArgumentException{
-//        Vector2d position = animal.getPosition();
-//        if(!canMoveTo(position)){
-//            throw new IllegalArgumentException("You cannot move to the " + position + " position");
-//        }
-//        this.animalMap.put(position, animal);
-//        animal.addObserver(this);
-//        animal.setOrder(this.animalMap.size());
-//    }
 
     public String toString(){
         return mapVisualizer.draw(calculateLowerBound(), calculateUpperBound());
