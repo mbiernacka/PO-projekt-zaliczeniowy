@@ -8,7 +8,7 @@ public class Animal {
     private MapDirection orientation;
     private Vector2d position;
     private final IWorldMap map;
-    private Genotype genotype; //nowa klasa
+    //private Genotype genotype; //nowa klasa
     private int energy;
     /*
     zwiększanie energi po jedzeniu
