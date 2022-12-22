@@ -15,15 +15,14 @@ public class BasicMap extends AbstractWorldMap {
         this.grassAmount =grassAmount;
         this.grassMap = new HashMap<>();
         this.mapBoundary = mb;
-        Random r = new Random();
-        int randomNum;
+
         for (int i = 0; i < grassAmount; i++) {
 
-            if((int)(1+Math.random() * 10) <8){
-                centerPlant();
-           }else{
-                randomPlant();
-            }
+//            if((int)(1+Math.random() * 10) <8){
+                centerPlant();//losowa pozycja z centralnego
+//           }else{
+//                randomPlant();
+//            }
 
         }
     }

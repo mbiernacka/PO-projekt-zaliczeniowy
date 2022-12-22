@@ -13,7 +13,7 @@ public class MapBoundary implements IPositionChangeObserver {
     private final TreeSet<Vector2d> xSet;
     private final TreeSet<Vector2d> ySet;
 
-    public MapBoundary(){
+    public MapBoundary(){//interface
         this.xSet = new TreeSet<>(Comparator.comparingInt(o -> o.x));
         this.ySet = new TreeSet<>(Comparator.comparingInt(o -> o.y));
     }

@@ -27,5 +27,6 @@ ocena:
 -mile widziane:
 testy
 ...
-
+granice 2 i jedna abstrakcyjna
+interface do mab boundary
  */
