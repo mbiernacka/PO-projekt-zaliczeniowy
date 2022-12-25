@@ -18,11 +18,12 @@ public class BasicMap extends AbstractWorldMap {
 
         for (int i = 0; i < grassAmount; i++) {
 
-//            if((int)(1+Math.random() * 10) <8){
+           if((int)(1+Math.random() * 10) <8){
+
                 centerPlant();//losowa pozycja z centralnego
-//           }else{
-//                randomPlant();
-//            }
+           }else{
+               randomPlant();
+            }
 
         }
     }

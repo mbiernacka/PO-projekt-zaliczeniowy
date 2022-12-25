@@ -13,6 +13,7 @@ public class Main {
         map.place(new Animal(map, new Vector2d(8,1)));
         map.place(new Animal(map, new Vector2d(0,14)));
         map.place(new Animal(map, new Vector2d(20,0)));
+
         System.out.println(map);
 
     }
