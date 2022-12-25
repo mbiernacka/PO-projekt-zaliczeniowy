@@ -12,10 +12,11 @@ public class MapBoundary implements IPositionChangeObserver {
 
     private final TreeSet<Vector2d> xSet;
     private final TreeSet<Vector2d> ySet;
-
-    public MapBoundary(){//interface
+    private  Vector2d size;
+    public MapBoundary(Vector2d size){//interface
         this.xSet = new TreeSet<>(Comparator.comparingInt(o -> o.x));
         this.ySet = new TreeSet<>(Comparator.comparingInt(o -> o.y));
+        this.size = size;
     }
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
@@ -31,15 +32,11 @@ public class MapBoundary implements IPositionChangeObserver {
     }
 
     public Vector2d getLowerLeft() {
-        Vector2d xRes = xSet.first();
-        Vector2d yRes = ySet.first();
-        return xRes.lowerLeft(yRes);
+        return new Vector2d(0,0);
     }
 
     public Vector2d getUpperRight() {
-        Vector2d xRes = xSet.last();
-        Vector2d yRes = ySet.last();
-        return xRes.upperRight(yRes);
+        return this.size;
     }
     public Vector2d verifyMove(Vector2d vector2d){
         return null;

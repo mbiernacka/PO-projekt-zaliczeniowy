@@ -29,4 +29,18 @@ testy
 ...
 granice 2 i jedna abstrakcyjna
 interface do mab boundary
+
+
+
+
+Mapa:
+Ustalaie granic
+Co się dzieje na granicy(interface)
+Pola 80/20 działało xd/done
+
+
+rand- działa ale jak doda się animal to animal może nadpisać
+
+
+
  */
