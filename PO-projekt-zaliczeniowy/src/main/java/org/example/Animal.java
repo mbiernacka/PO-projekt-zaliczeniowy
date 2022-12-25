@@ -78,7 +78,9 @@ public class Animal {
              i++;
          }
          this.orientation = newOrientation;
+        map.positionChanged(this.position ,this.position.add(this.orientation.toUnitVector()));
          this.position = this.position.add(this.orientation.toUnitVector());
+
         System.out.println(this.position.toString());
         System.out.println(newOrientation.toString());
     }
