@@ -2,13 +2,15 @@ package org.example;
 
 import org.example.interfaces.IWorldMap;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Animal {
+    public static final int NUMBER_OF_GENES = 7;
     private MapDirection orientation;
     private Vector2d position;
     private final IWorldMap map;
-    //private Genotype genotype; //nowa klasa
+    private Integer[] genotype = new Integer[NUMBER_OF_GENES]; //nowa klasa
     private int energy;
     /*
     zwiększanie energi po jedzeniu
@@ -18,15 +20,19 @@ public class Animal {
      */
     //private final List<IPositionChangeObserver> observerList;
 
-    public Animal (IWorldMap map){
-        this(map, new Vector2d(2,2));
-    }
+//    public Animal (IWorldMap map){
+//        this(map, new Vector2d(2,2));
+//    }
 
-    public Animal(IWorldMap map, Vector2d initialPosition){
+    public Animal(IWorldMap map, Vector2d initialPosition, Integer[]genotype, int energy){
         this.orientation = MapDirection.NORTH;
         this.position = initialPosition;
+        this.energy = energy;
         this.map = map;
         map.place(this);
+        for (int i=0; i <= genotype.length-1; i++){
+            this.genotype[i] = genotype[i];
+        }
         //this.observerList = new ArrayList<>();
     }
 
@@ -42,11 +48,22 @@ public class Animal {
     public int getEnergy(){
         return this.energy;
     }
+    public Integer[] getGenotype(){
+        return this.genotype;
+    }
+
+    protected void mutate(Integer[] newGenotype){
+        this.genotype = newGenotype;
+    }
 
     public void eat(int value){
         if (!isDead()){
             this.energy += value;
         }
+    }
+
+    public void decreaseEnergy(int value){
+        this.energy -= value;
     }
     public boolean isDead(){
         return this.energy <= 0;
