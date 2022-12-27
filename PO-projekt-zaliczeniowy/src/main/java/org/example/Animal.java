@@ -15,6 +15,20 @@ public class Animal {
     private final IWorldMap map;
     private Integer[] genotype = new Integer[NUMBER_OF_GENES]; //nowa klasa
     private int energy;
+
+    private int age=0;
+
+    private int numberOfKids=0;
+
+
+    private int currentGene = 0;
+
+    private int nextGene(){
+        int curr = currentGene; //6
+        currentGene++;//7
+        currentGene = currentGene % NUMBER_OF_GENES;//0
+        return curr;//6
+    }
     /*
     zwiększanie energi po jedzeniu
     sprawdzanbie czyt nie umarło
@@ -66,9 +80,21 @@ public class Animal {
         }
     }
 
+    public void increaseNumberOfKids(){
+        this.numberOfKids++;
+    }
     public void decreaseEnergy(int value){
         this.energy -= value;
     }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public int getNumberOfKids() {
+        return this.numberOfKids;
+    }
+
     public boolean isDead(){
         return this.energy <= 0;
     }
@@ -91,7 +117,25 @@ public class Animal {
         return Objects.equals(this.position, position);
     }
 
-    public void move(int gene){
+    public void testMove(int gene){
+        MapDirection newOrientation = this.orientation;
+        int i = 0;
+        while (i < gene){
+            newOrientation = newOrientation.next();
+            i++;
+        }
+        this.orientation = newOrientation;
+        //dodałem tylko tą linijkę, jak coś xd
+        this.positionChanged(this.position ,this.position.add(this.orientation.toUnitVector()), this);
+        this.position = this.position.add(this.orientation.toUnitVector());
+
+        System.out.println(this.position.toString());
+        System.out.println(newOrientation.toString());
+    }
+
+    public void move(){
+        age++;
+        int gene = nextGene();
         MapDirection newOrientation = this.orientation;
         int i = 0;
         while (i < gene){

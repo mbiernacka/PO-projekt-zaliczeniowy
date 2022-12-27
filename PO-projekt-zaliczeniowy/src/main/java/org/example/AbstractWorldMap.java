@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.*;
+
 import org.example.interfaces.IWorldMap;
 
 public abstract class AbstractWorldMap implements IWorldMap{
@@ -50,9 +51,13 @@ public abstract class AbstractWorldMap implements IWorldMap{
         this.animalMap.putIfAbsent(position, new ArrayList<>());
         this.animalMap.get(position).add(animal);
     }
-    public void removeDeadAnimal(){
+    public void removeDeadAnimalAndMove(){
         ArrayList keyList = new ArrayList();
         ArrayList animalList = new ArrayList();
+
+        ArrayList<Animal> aliveAnimalList = new ArrayList<>();
+        ArrayList aliveKeyList = new ArrayList<>();
+
         animalMap.forEach((key, value)->{
 
             for (Animal animal:
@@ -61,6 +66,9 @@ public abstract class AbstractWorldMap implements IWorldMap{
                     keyList.add(key);
                     animalList.add(animal);
 //        this.animalMap.get(key).remove(animal);
+                }else {
+                   //aliveKeyList.add(key);
+                   aliveAnimalList.add(animal);
                 }
             }
 
@@ -68,13 +76,30 @@ public abstract class AbstractWorldMap implements IWorldMap{
         for (int i = 0; i < keyList.size(); i++) {
             this.animalMap.get(keyList.get(i)).remove(animalList.get(i));
         }
+        for (int i = 0; i < aliveAnimalList.size(); i++) {
+            aliveAnimalList.get(i).move();
+        }
 
 //todo:to można przez iterator- jakoś
 //        Iterator mapIterator = animalMap.entrySet().iterator();
 //        while (mapIterator.hasNext()){
 //           System.out.println(mapIterator);
 //        }
+    }
+
+    public void sortAnimalMap(){
+
+        animalMap.forEach((key, value)->{
+
+            value.sort(Comparator.comparing(Animal::getEnergy)
+                            .thenComparing(Animal::getAge)
+                            .thenComparing(Animal::getNumberOfKids).reversed());
+            });
+
+        }
+
+
 
     }
 
-}
+

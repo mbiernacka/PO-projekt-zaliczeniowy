@@ -121,7 +121,9 @@ public class Reproduction {
         mutation(childAnimal);
         this.map.place(childAnimal);
         this.parent1.decreaseEnergy(ENERGY_DECREASE);
+        this.parent1.increaseNumberOfKids();
         this.parent2.decreaseEnergy(ENERGY_DECREASE);
+        this.parent2.increaseNumberOfKids();
     }
 
 }
