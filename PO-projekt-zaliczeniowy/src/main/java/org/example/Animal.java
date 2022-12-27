@@ -32,11 +32,12 @@ public class Animal {
         this.position = initialPosition;
         this.energy = energy;
         this.map = map;
-        map.place(this);
+
         for (int i=0; i <= genotype.length-1; i++){
             this.genotype[i] = genotype[i];
         }
         this.observerList = new ArrayList<>();
+        map.place(this);
     }
 
 

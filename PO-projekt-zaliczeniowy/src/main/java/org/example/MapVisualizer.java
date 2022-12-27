@@ -2,6 +2,7 @@ package org.example;
 import org.example.interfaces.IWorldMap;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -76,6 +77,7 @@ public class MapVisualizer {
     private String drawObject(Vector2d currentPosition) {
         String result = null;
         if (this.map.isOccupied(currentPosition)) {
+            if(this.map.objectAt(currentPosition) instanceof Collection<?>){
             List object = (List) this.map.objectAt(currentPosition);
 
            // System.out.println(object.isEmpty());
@@ -98,7 +100,18 @@ public class MapVisualizer {
                 result = EMPTY_CELL;
             }
 
-        } else {
+        }else {
+                Object object = this.map.objectAt(currentPosition);
+                if (object != null) {
+                    result = object.toString();
+                } else {
+                    result = EMPTY_CELL;
+                }
+            }
+
+        }
+        //tu
+        else {
 
             result = EMPTY_CELL;
         }

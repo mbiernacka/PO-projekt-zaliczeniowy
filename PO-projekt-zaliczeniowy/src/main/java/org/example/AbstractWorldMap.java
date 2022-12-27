@@ -31,10 +31,10 @@ public abstract class AbstractWorldMap implements IWorldMap{
         Animal animal = animalList.get(animalList.indexOf(a));
 
         this.animalMap.get(oldPosition).remove(animal);
-        System.out.println("tu chcemy nulla" + animalMap.get(oldPosition));
+        //System.out.println("tu chcemy nulla" + animalMap.get(oldPosition));
         this.animalMap.putIfAbsent(newPosition, new ArrayList<>());
         this.animalMap.get(newPosition).add(animal);
-        System.out.println("tu chcemy zwierze" + animalMap.get(newPosition));
+        //System.out.println("tu chcemy zwierze" + animalMap.get(newPosition));
 
     }
 
