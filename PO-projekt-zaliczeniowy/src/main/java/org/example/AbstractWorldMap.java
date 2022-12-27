@@ -10,6 +10,7 @@ public abstract class AbstractWorldMap implements IWorldMap{
     protected AbstractWorldMap(){
         this.animalMap = new HashMap<>();
         this.mapVisualizer = new MapVisualizer(this);
+
     }
 
 
@@ -18,6 +19,7 @@ public abstract class AbstractWorldMap implements IWorldMap{
     }
 
     public Object objectAt(Vector2d position){
+
         return this.animalMap.getOrDefault(position, null);
     }
 
@@ -29,8 +31,10 @@ public abstract class AbstractWorldMap implements IWorldMap{
         Animal animal = animalList.get(animalList.indexOf(a));
 
         this.animalMap.get(oldPosition).remove(animal);
+        System.out.println("tu chcemy nulla" + animalMap.get(oldPosition));
         this.animalMap.putIfAbsent(newPosition, new ArrayList<>());
         this.animalMap.get(newPosition).add(animal);
+        System.out.println("tu chcemy zwierze" + animalMap.get(newPosition));
 
     }
 

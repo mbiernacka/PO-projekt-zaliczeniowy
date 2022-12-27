@@ -11,14 +11,14 @@ import java.util.Random;
 public class BasicMap extends AbstractWorldMap {
     private int grassAmount;
     private HashMap<Vector2d, Plant> grassMap;
-    public MapBoundary mapBoundary;
 
+    private  Vector2d size;
 //new v2
 
-    public BasicMap(int grassAmount, MapBoundary mb){
+    public BasicMap(int grassAmount, Vector2d size){
         this.grassAmount =grassAmount;
         this.grassMap = new HashMap<>();
-        this.mapBoundary = mb;
+        this.size = size;
 
 
         for (int i = 0; i < grassAmount; i++) {
@@ -31,12 +31,19 @@ public class BasicMap extends AbstractWorldMap {
 
         }
     }
+    public Vector2d getLowerLeft() {
+        return new Vector2d(0,0);
+    }
+
+    public Vector2d getUpperRight() {
+        return this.size;
+    }
 
     protected void randomPlant(){
 
         int min = 0;
-        int maxY = mapBoundary.getUpperRight().x-1;
-        int maxX = mapBoundary.getUpperRight().y-1;
+        int maxY = this.getUpperRight().x-1;
+        int maxX = this.getUpperRight().y-1;
         int repeats = maxY*maxY;
         while(true){
             int x = (int) ((Math.random() * (maxX -1)) + 1);
@@ -46,7 +53,7 @@ public class BasicMap extends AbstractWorldMap {
 
             if(!this.grassMap.containsKey(newGrassPosition)){
                 grassMap.put(newGrassPosition, new Plant(newGrassPosition));
-                mapBoundary.place(newGrassPosition);
+                //mapBoundary.place(newGrassPosition);
                 break;
             }
         }
@@ -55,17 +62,17 @@ public class BasicMap extends AbstractWorldMap {
 //todo: rozbudować o ustatlnie parametrów
     protected void centerPlant(){
 
-        int centerX = mapBoundary.getUpperRight().x /2;
-        int centerY = mapBoundary.getUpperRight().y /2;
+        int centerX = this.getUpperRight().x /2;
+        int centerY = this.getUpperRight().y /2;
         int radiusX =centerX;
         int y = centerY;
         int radiusY = 0;
         //check center
-        int maxEmpty = mapBoundary.getUpperRight().x;
+        int maxEmpty = this.getUpperRight().x;
         boolean yCheck = true;
 
         while(true){
-            for (int i = 0; i < mapBoundary.getUpperRight().x; i++) {
+            for (int i = 0; i < this.getUpperRight().x; i++) {
                 if(animalMap.containsKey(new Vector2d(i,y))){
                     maxEmpty--;
                 }
@@ -75,18 +82,18 @@ public class BasicMap extends AbstractWorldMap {
             }
 
 
-            int x = (int) ((Math.random() * ((mapBoundary.getUpperRight().x- 1)))+1);
+            int x = (int) ((Math.random() * ((this.getUpperRight().x- 1)))+1);
 
             Vector2d newGrassPosition = new Vector2d(x,y);
 
 
             if(!this.grassMap.containsKey(newGrassPosition)){
                 grassMap.put(newGrassPosition, new Plant(newGrassPosition));
-                mapBoundary.place(newGrassPosition);
+                //mapBoundary.place(newGrassPosition);
                 break;
             }
             if(yCheck){
-            y = (int) ((Math.random() * (mapBoundary.getUpperRight().y -  1)) + 1);
+            y = (int) ((Math.random() * (this.getUpperRight().y -  1)) + 1);
         }
         }
 
@@ -129,23 +136,22 @@ public class BasicMap extends AbstractWorldMap {
 
     @Override
     public Vector2d calculateLowerBound(){
-        return this.mapBoundary.getLowerLeft();
+        return this.getLowerLeft();
     }
 
     @Override
     public Vector2d calculateUpperBound(){
-        return this.mapBoundary.getUpperRight();
+        return this.getUpperRight();
     }
 
     @Override
     public void place(Animal animal){
         super.place(animal);
-        mapBoundary.place(animal.getPosition());
+       // mapBoundary.place(animal.getPosition());
     }
 
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal animal){
         super.positionChanged(oldPosition, newPosition, animal);
-        this.mapBoundary.positionChanged(oldPosition,newPosition, animal);
     }
 }

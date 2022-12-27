@@ -108,7 +108,10 @@ public class Animal {
 
 
     public void addObserver(IPositionChangeObserver observer){
-        this.observerList = new ArrayList<>();//DO USUNICIA
+       // this.observerList = new ArrayList<>();//DO USUNICIA
+//        if (observerList == null){
+//            this.observerList = new ArrayList<>();
+//        }
         this.observerList.add(observer);
     }
     public void removeObserver(IPositionChangeObserver observer){

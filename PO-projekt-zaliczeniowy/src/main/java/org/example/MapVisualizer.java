@@ -78,19 +78,31 @@ public class MapVisualizer {
         if (this.map.isOccupied(currentPosition)) {
             List object = (List) this.map.objectAt(currentPosition);
 
-            for (Object o: object) {
-                if (o != null) {
-                    result = o.toString();
-                } else {
-                    result = EMPTY_CELL;
+           // System.out.println(object.isEmpty());
+            if(!object.isEmpty()) {
+                for (Object o : object) {
+
+                    if (o != null) {
+                        if(result != null){
+                        result += o.toString();
+                        } else {
+                            result = o.toString();
+                        }
+                    } else {
+
+                        result = EMPTY_CELL;
+                    }
+
                 }
+            } else {
+                result = EMPTY_CELL;
             }
 
-
         } else {
-            System.out.println("PO " + this.map.objectAt(currentPosition));
+
             result = EMPTY_CELL;
         }
+        //System.out.println("PO " + this.map.objectAt(currentPosition));
         return result;
     }
 }
