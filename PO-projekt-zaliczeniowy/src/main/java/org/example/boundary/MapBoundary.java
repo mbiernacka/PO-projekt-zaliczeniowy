@@ -1,6 +1,7 @@
 package org.example.boundary;
 
 
+import org.example.Animal;
 import org.example.Vector2d;
 import org.example.interfaces.IPositionChangeObserver;
 
@@ -21,7 +22,7 @@ public class MapBoundary implements IPositionChangeObserver {
     }
     //tutajjj
     @Override
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal animal) {
        // newPosition =  verifyMove(newPosition);
 
         this.xSet.remove(oldPosition);

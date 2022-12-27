@@ -144,8 +144,8 @@ public class BasicMap extends AbstractWorldMap {
     }
 
     @Override
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
-        super.positionChanged(oldPosition, newPosition);
-        this.mapBoundary.positionChanged(oldPosition,newPosition);
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal animal){
+        super.positionChanged(oldPosition, newPosition, animal);
+        this.mapBoundary.positionChanged(oldPosition,newPosition, animal);
     }
 }

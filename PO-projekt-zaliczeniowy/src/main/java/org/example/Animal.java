@@ -21,7 +21,7 @@ public class Animal {
     mniejszanie(int)
     get energy
      */
-   private final List<IPositionChangeObserver> observerList;
+   private List<IPositionChangeObserver> observerList;
 
 //    public Animal (IWorldMap map){
 //        this(map, new Vector2d(2,2));
@@ -108,6 +108,7 @@ public class Animal {
 
 
     public void addObserver(IPositionChangeObserver observer){
+        this.observerList = new ArrayList<>();//DO USUNICIA
         this.observerList.add(observer);
     }
     public void removeObserver(IPositionChangeObserver observer){
