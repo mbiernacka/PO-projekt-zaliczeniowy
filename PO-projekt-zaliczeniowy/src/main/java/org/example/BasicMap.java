@@ -1,6 +1,8 @@
 package org.example;
 
-//import javax.swing.table.TableRowSorter;
+import org.example.boundary.MapBoundary;
+
+import javax.swing.table.TableRowSorter;
 import java.lang.Math;
 import java.util.HashMap;
 import java.util.Random;
@@ -110,7 +112,19 @@ public class BasicMap extends AbstractWorldMap {
         }
         return grassMap.getOrDefault(position, null);
 
-    };
+    }
+
+    @Override
+    public boolean isOccupied(Vector2d position) {
+        return super.isOccupied(position);
+    }
+
+    @Override
+    public MapBoundary getMapBoundary() {
+        return null;
+    }
+
+    ;
 
     @Override
     public Vector2d calculateLowerBound(){

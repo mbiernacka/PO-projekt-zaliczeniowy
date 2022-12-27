@@ -2,6 +2,7 @@ package org.example.interfaces;
 
 import org.example.Animal;
 import org.example.Vector2d;
+import org.example.boundary.MapBoundary;
 
 /**
  * The interface responsible for interacting with the map of the world.
@@ -55,5 +56,5 @@ public interface IWorldMap extends IPositionChangeObserver {
         return objectAt(position) != null;}
 
 
-
+    public MapBoundary getMapBoundary();
 }

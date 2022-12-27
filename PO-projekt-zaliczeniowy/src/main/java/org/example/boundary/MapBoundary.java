@@ -1,6 +1,7 @@
-package org.example;
+package org.example.boundary;
 
 
+import org.example.Vector2d;
 import org.example.interfaces.IPositionChangeObserver;
 
 import java.util.Collections;
@@ -18,12 +19,16 @@ public class MapBoundary implements IPositionChangeObserver {
         this.ySet = new TreeSet<>(Comparator.comparingInt(o -> o.y));
         this.size = size;
     }
+    //tutajjj
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        //newPosition = verifyMove(newPosition);
+
         this.xSet.remove(oldPosition);
         this.ySet.remove(oldPosition);
         this.xSet.add(newPosition);
         this.ySet.add(newPosition);
+
     }
 
     public void place(Vector2d position){
@@ -38,8 +43,8 @@ public class MapBoundary implements IPositionChangeObserver {
     public Vector2d getUpperRight() {
         return this.size;
     }
-    public Vector2d verifyMove(Vector2d vector2d){
-        return null;
-    }
+
+
+
 }
 

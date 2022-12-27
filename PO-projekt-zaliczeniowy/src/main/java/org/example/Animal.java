@@ -88,16 +88,16 @@ public class Animal {
     }
 
     public void move(int gene){
-         MapDirection newOrientation = this.orientation;
-         int i = 0;
-         while (i < gene){
-             newOrientation = newOrientation.next();
-             i++;
-         }
-         this.orientation = newOrientation;
-         //dodałem tylko tą linijkę, jak coś xd
-         map.positionChanged(this.position ,this.position.add(this.orientation.toUnitVector()));
-         this.position = this.position.add(this.orientation.toUnitVector());
+        MapDirection newOrientation = this.orientation;
+        int i = 0;
+        while (i < gene){
+            newOrientation = newOrientation.next();
+            i++;
+        }
+        this.orientation = newOrientation;
+        //dodałem tylko tą linijkę, jak coś xd
+        map.positionChanged(this.position ,this.position.add(this.orientation.toUnitVector()));
+        this.position = this.position.add(this.orientation.toUnitVector());
 
         System.out.println(this.position.toString());
         System.out.println(newOrientation.toString());

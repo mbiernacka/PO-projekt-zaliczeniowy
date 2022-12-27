@@ -28,6 +28,7 @@ public abstract class AbstractWorldMap implements IWorldMap{
         Animal animal = (Animal) this.objectAt(oldPosition);
         this.animalMap.remove(oldPosition);
         this.animalMap.put(newPosition, animal);
+
     }
 
     public Map<Vector2d, Animal> getAnimalMap() {
