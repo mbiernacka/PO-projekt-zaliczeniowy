@@ -50,4 +50,31 @@ public abstract class AbstractWorldMap implements IWorldMap{
         this.animalMap.putIfAbsent(position, new ArrayList<>());
         this.animalMap.get(position).add(animal);
     }
+    public void removeDeadAnimal(){
+        ArrayList keyList = new ArrayList();
+        ArrayList animalList = new ArrayList();
+        animalMap.forEach((key, value)->{
+
+            for (Animal animal:
+                    value) {
+                if(animal.isDead()){
+                    keyList.add(key);
+                    animalList.add(animal);
+//        this.animalMap.get(key).remove(animal);
+                }
+            }
+
+        });
+        for (int i = 0; i < keyList.size(); i++) {
+            this.animalMap.get(keyList.get(i)).remove(animalList.get(i));
+        }
+
+//todo:to można przez iterator- jakoś
+//        Iterator mapIterator = animalMap.entrySet().iterator();
+//        while (mapIterator.hasNext()){
+//           System.out.println(mapIterator);
+//        }
+
+    }
+
 }

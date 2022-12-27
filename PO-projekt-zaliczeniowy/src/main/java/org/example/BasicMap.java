@@ -59,7 +59,7 @@ public class BasicMap extends AbstractWorldMap {
         }
 
     }
-//todo: rozbudować o ustatlnie parametrów
+
     protected void centerPlant(){
 
         int centerX = this.getUpperRight().x /2;
@@ -154,4 +154,6 @@ public class BasicMap extends AbstractWorldMap {
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal animal){
         super.positionChanged(oldPosition, newPosition, animal);
     }
+
+
 }

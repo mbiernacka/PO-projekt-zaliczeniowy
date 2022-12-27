@@ -11,16 +11,18 @@ public class Main {
         AbstractWorldMap map = new BasicMap(10, new Vector2d(12,10));
 
         Animal animal1 = new Animal(map, new Vector2d(3, 7), new Integer[]{7, 2, 2, 5, 1, 4, 6}, 50);
-        Animal animal2 = new Animal(map, new Vector2d(3, 7), new Integer[]{1, 2, 3, 4, 5, 6, 7}, 20);
-
+        Animal animal2 = new Animal(map, new Vector2d(6, 7), new Integer[]{1, 2, 3, 4, 5, 6, 7}, 20);
+        Animal animal3 = new Animal(map, new Vector2d(3, 7), new Integer[]{1, 2, 3, 4, 5, 6, 7}, 0);
 
         System.out.println(map);
 
-       animal1.move(0);
+
 //       animal1.move(0);
 //        animal2.move(4);
 //        animal1.move(0);
+        map.removeDeadAnimal();
         System.out.println(map);
+
 // poza mapą        animal1.move(0);
 //        System.out.println(map);
        // Reproduction reproduction = new Reproduction(animal1, animal2, map, animal1.getPosition());
