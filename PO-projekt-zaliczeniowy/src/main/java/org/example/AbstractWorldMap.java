@@ -24,8 +24,10 @@ public abstract class AbstractWorldMap implements IWorldMap{
     public abstract Vector2d calculateLowerBound();
     public abstract Vector2d calculateUpperBound();
 
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
-        Animal animal = (Animal) this.objectAt(oldPosition);
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal a){
+        ArrayList<Animal> animalList = ((ArrayList<Animal>) this.objectAt(oldPosition));
+        Animal animal = animalList.get(animalList.indexOf(a));
+
         this.animalMap.get(oldPosition).remove(animal);
         this.animalMap.putIfAbsent(newPosition, new ArrayList<>());
         this.animalMap.get(newPosition).add(animal);
@@ -40,7 +42,8 @@ public abstract class AbstractWorldMap implements IWorldMap{
         Vector2d position = animal.getPosition();
         //coś jest
 
-        //
-        this.animalMap.put(position, animalMap.get(position));
+        animal.addObserver(this);
+        this.animalMap.putIfAbsent(position, new ArrayList<>());
+        this.animalMap.get(position).add(animal);
     }
 }

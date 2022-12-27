@@ -1,5 +1,9 @@
 package org.example;
 import org.example.interfaces.IWorldMap;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The map visualizer converts the {@link IWorldMap} map into a string
  * representation.
@@ -72,13 +76,19 @@ public class MapVisualizer {
     private String drawObject(Vector2d currentPosition) {
         String result = null;
         if (this.map.isOccupied(currentPosition)) {
-            Object object = this.map.objectAt(currentPosition);
-            if (object != null) {
-                result = object.toString();
-            } else {
-                result = EMPTY_CELL;
+            List object = (List) this.map.objectAt(currentPosition);
+
+            for (Object o: object) {
+                if (o != null) {
+                    result = o.toString();
+                } else {
+                    result = EMPTY_CELL;
+                }
             }
+
+
         } else {
+            System.out.println("PO " + this.map.objectAt(currentPosition));
             result = EMPTY_CELL;
         }
         return result;

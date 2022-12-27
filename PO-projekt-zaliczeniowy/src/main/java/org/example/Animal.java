@@ -1,8 +1,11 @@
 package org.example;
 
+import org.example.interfaces.IPositionChangeObserver;
 import org.example.interfaces.IWorldMap;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Animal {
@@ -18,7 +21,7 @@ public class Animal {
     mniejszanie(int)
     get energy
      */
-    //private final List<IPositionChangeObserver> observerList;
+   private final List<IPositionChangeObserver> observerList;
 
 //    public Animal (IWorldMap map){
 //        this(map, new Vector2d(2,2));
@@ -33,7 +36,7 @@ public class Animal {
         for (int i=0; i <= genotype.length-1; i++){
             this.genotype[i] = genotype[i];
         }
-        //this.observerList = new ArrayList<>();
+        this.observerList = new ArrayList<>();
     }
 
 
@@ -96,7 +99,7 @@ public class Animal {
         }
         this.orientation = newOrientation;
         //dodałem tylko tą linijkę, jak coś xd
-        map.positionChanged(this.position ,this.position.add(this.orientation.toUnitVector()));
+        this.positionChanged(this.position ,this.position.add(this.orientation.toUnitVector()), this);
         this.position = this.position.add(this.orientation.toUnitVector());
 
         System.out.println(this.position.toString());
@@ -104,16 +107,16 @@ public class Animal {
     }
 
 
-//    public void addObserver(IPositionChangeObserver observer){
-//        this.observerList.add(observer);
-//    }
-//    public void removeObserver(IPositionChangeObserver observer){
-//        this.observerList.remove(observer);
-//    }
+    public void addObserver(IPositionChangeObserver observer){
+        this.observerList.add(observer);
+    }
+    public void removeObserver(IPositionChangeObserver observer){
+        this.observerList.remove(observer);
+    }
 
-//    private void positionChanged(Vector2d oldPosition, Vector2d newPosition){
-//        for (IPositionChangeObserver observer: this.observerList){
-//            observer.positionChanged(oldPosition, newPosition);
-//        }
-//    }
+    private void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal a){
+        for (IPositionChangeObserver observer: this.observerList){
+            observer.positionChanged(oldPosition, newPosition, this);
+        }
+    }
 }

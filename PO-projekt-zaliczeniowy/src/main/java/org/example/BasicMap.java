@@ -4,6 +4,7 @@ import org.example.boundary.MapBoundary;
 
 import javax.swing.table.TableRowSorter;
 import java.lang.Math;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -107,7 +108,7 @@ public class BasicMap extends AbstractWorldMap {
     @Override
     public Object objectAt(Vector2d position){
         Object obj = super.objectAt(position);
-        if (obj instanceof Animal) {
+        if (obj instanceof ArrayList<?>) {
             return obj;
         }
         return grassMap.getOrDefault(position, null);
