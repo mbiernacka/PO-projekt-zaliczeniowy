@@ -32,4 +32,15 @@ public class BoundaryHellishPortal extends MapBoundary
         return outputV;
     }
 
+//    @Override
+//    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+//        // newPosition =  verifyMove(newPosition);
+//
+//        super.xSet.remove(oldPosition);
+//        super.ySet.remove(oldPosition);
+//        super.xSet.add(newPosition);
+//        super.ySet.add(newPosition);
+//
+//    }
+
 }

@@ -1,21 +1,26 @@
 package org.example;
 // temp class dodana na testy
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class playground {
 
-    public static void main(String[] args) {
-    int centerX = 10;
-    int centerY = 15;
-    int radius = 5;
 
-for (int y = centerY - radius; y <= centerY + radius; y++) {
-        for (int x = centerX - radius; x <= centerX + radius; x++) {
+    public static void main(String[] args){
+        HashMap<String, ArrayList<String>> animalMap = new HashMap<>();
+        if(animalMap.get("a") != null){
+            ArrayList<String> ar = animalMap.get("a");
+            ar.add("test");
 
-        System.out.println("(" + x + ", " + y + ")");
+        }else {
+            animalMap.put("a", new ArrayList<>());
+
         }
-        }
-
-}
+        System.out.println(animalMap);
+        System.out.println(animalMap.get("a"));
+    }
 }
 /*
 ocena:
@@ -42,5 +47,5 @@ Pola 80/20 działało xd/done
 rand- działa ale jak doda się animal to animal może nadpisać
 
 
-
+// map boundary move ver
  */

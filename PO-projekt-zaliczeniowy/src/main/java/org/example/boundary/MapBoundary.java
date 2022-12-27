@@ -22,7 +22,7 @@ public class MapBoundary implements IPositionChangeObserver {
     //tutajjj
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        //newPosition = verifyMove(newPosition);
+       // newPosition =  verifyMove(newPosition);
 
         this.xSet.remove(oldPosition);
         this.ySet.remove(oldPosition);
