@@ -1,13 +1,14 @@
 package org.example.boundary;
 
+import org.example.BasicMap;
 import org.example.Vector2d;
 
-public class BoundaryHellishPortal extends MapBoundary
+public class BoundaryHellishPortal extends BasicMap
 {
 
 
-    public BoundaryHellishPortal(Vector2d size) {
-        super(size);
+    public BoundaryHellishPortal(int grassAmount, Vector2d size) {
+        super(grassAmount, size);
     }
 
     public Vector2d verifyMove(Vector2d oldVector, Vector2d newVector){
@@ -17,18 +18,18 @@ public class BoundaryHellishPortal extends MapBoundary
 
         if (newVector.x <0) {
             outputV = new Vector2d(maxX, newVector.y);
-        }
-        if (newVector.y<0) {
-            outputV = new Vector2d(newVector.y, maxY);
-        }
-        if(maxX + 1 < newVector.x){
+        } else if(maxX  < newVector.x ){
             outputV = new Vector2d(0, newVector.y);
         }
-        if (maxY + 1 < newVector.x) {
 
+        if (newVector.y < 0) {
+            outputV = new Vector2d(newVector.x, maxY);
+        } else if (maxY < newVector.y) {
             outputV = new Vector2d(newVector.x, 0);
         }
 
+        System.out.println("strara: " + newVector);
+        System.out.println("nowa pozycja: " +outputV);
         return outputV;
     }
 

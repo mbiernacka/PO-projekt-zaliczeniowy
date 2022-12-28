@@ -2,31 +2,48 @@ package org.example;
 
 import org.example.boundary.MapBoundary;
 
-import javax.swing.table.TableRowSorter;
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Random;
+import java.util.Iterator;
 
-public class BasicMap extends AbstractWorldMap {
+public abstract class BasicMap extends AbstractWorldMap {
     private int grassAmount;
     private HashMap<Vector2d, Plant> grassMap;
 
+    private ArrayList<Vector2d> availableGrassSlots;
+
     private  Vector2d size;
+    private  final int NEW_PLANTS;
+    private final int PLANT_NUTRITIOUSNESS = 6;
 //new v2
 
     public BasicMap(int grassAmount, Vector2d size){
         this.grassAmount =grassAmount;
         this.grassMap = new HashMap<>();
         this.size = size;
+        availableGrassSlots = new ArrayList<>();
+        for (int i = 0; i <= this.size.x; i++) {
+            for (int j = 0; j <= this.size.y; j++) {
+                availableGrassSlots.add(new Vector2d(i,j));
+            }
+        }
+        this.NEW_PLANTS = grassAmount;
+        createPlant();
+
+    }
 
 
-        for (int i = 0; i < grassAmount; i++) {
-
-           if((int)(1+Math.random() * 10) <8){
+    public void createPlant(){
+        for (int i = 0; i < this.NEW_PLANTS; i++) {
+            if(grassMap.size() == (size.x + 1) * (size.y + 1)) {
+                break;
+            }
+            if ((int) (1 + Math.random() * 10) < 8) {
                 centerPlant();//losowa pozycja z centralnego
-           }else{
-               randomPlant();
+            } else {
+                randomPlant();
             }
 
         }
@@ -41,22 +58,10 @@ public class BasicMap extends AbstractWorldMap {
 
     protected void randomPlant(){
 
-        int min = 0;
-        int maxY = this.getUpperRight().x-1;
-        int maxX = this.getUpperRight().y-1;
-        int repeats = maxY*maxY;
-        while(true){
-            int x = (int) ((Math.random() * (maxX -1)) + 1);
-            int y = (int) ((Math.random() * (maxY -  1)) + 1);
-            Vector2d newGrassPosition = new Vector2d(x,y);
+        Collections.shuffle(availableGrassSlots);
+        grassMap.put(availableGrassSlots.get(0), new Plant(availableGrassSlots.get(0)));
+        availableGrassSlots.remove(0);
 
-
-            if(!this.grassMap.containsKey(newGrassPosition)){
-                grassMap.put(newGrassPosition, new Plant(newGrassPosition));
-                //mapBoundary.place(newGrassPosition);
-                break;
-            }
-        }
 
     }
 
@@ -71,31 +76,74 @@ public class BasicMap extends AbstractWorldMap {
         int maxEmpty = this.getUpperRight().x;
         boolean yCheck = true;
 
-        while(true){
-            for (int i = 0; i < this.getUpperRight().x; i++) {
-                if(animalMap.containsKey(new Vector2d(i,y))){
-                    maxEmpty--;
+        int iterationCounter = 0;
+        boolean stop = false;
+
+        for (int i = centerY; i <= this.getUpperRight().y; i++) {
+            iterationCounter++;
+            //towrzenie tablicy x dla każdego y
+            ArrayList potentialX = new ArrayList<Integer>();
+            for (int j = 0; j <= getUpperRight().x; j++) {
+                potentialX.add(j);
+            }
+            Collections.shuffle(potentialX);
+            //sprawdzanie czy x jest dostępny
+            Iterator it = potentialX.iterator();
+            while (it.hasNext()){
+                //w górę
+                int j = (Integer) it.next();
+                Vector2d potentialPosition = new Vector2d(j,i);
+                if(availableGrassSlots.contains(potentialPosition)){
+                    availableGrassSlots.remove(potentialPosition);
+                    grassMap.put(potentialPosition, new Plant(potentialPosition));
+                    stop = true;
+                    break;
+
                 }
-                if(maxEmpty<=0){
-                    yCheck = false;
+                //w dół
+                potentialPosition = new Vector2d(j,i - (2*iterationCounter));
+                if(availableGrassSlots.contains(potentialPosition)){
+                    availableGrassSlots.remove(potentialPosition);
+                    grassMap.put(potentialPosition, new Plant(potentialPosition));
+                    stop = true;
+                    break;
+
                 }
             }
 
-
-            int x = (int) ((Math.random() * ((this.getUpperRight().x- 1)))+1);
-
-            Vector2d newGrassPosition = new Vector2d(x,y);
-
-
-            if(!this.grassMap.containsKey(newGrassPosition)){
-                grassMap.put(newGrassPosition, new Plant(newGrassPosition));
-                //mapBoundary.place(newGrassPosition);
+            if (stop){
                 break;
             }
-            if(yCheck){
-            y = (int) ((Math.random() * (this.getUpperRight().y -  1)) + 1);
+            }
         }
-        }
+
+
+
+//        while(true){
+//            for (int i = 0; i < this.getUpperRight().x; i++) {
+//                if(animalMap.containsKey(new Vector2d(i,y))){
+//                    maxEmpty--;
+//                }
+//                if(maxEmpty<=0){
+//                    yCheck = false;
+//                }
+//            }
+//
+//
+//            int x = (int) ((Math.random() * ((this.getUpperRight().x- 1)))+1);
+//
+//            Vector2d newGrassPosition = new Vector2d(x,y);
+//
+//
+//            if(!this.grassMap.containsKey(newGrassPosition)){
+//                grassMap.put(newGrassPosition, new Plant(newGrassPosition));
+//                //mapBoundary.place(newGrassPosition);
+//                break;
+//            }
+//            if(yCheck){
+//            y = (int) ((Math.random() * (this.getUpperRight().y -  1)) + 1);
+//        }
+
 
         //spr pozycji
 //        for (int y = centerY-2 ; y <= centerY+radiusY ; y++) {
@@ -109,7 +157,7 @@ public class BasicMap extends AbstractWorldMap {
 //                }else {mapBoundary.place(new Vector2d(x,y));}
 //            }
 //        }
-    }
+   // }
 
 
     @Override
@@ -155,5 +203,40 @@ public class BasicMap extends AbstractWorldMap {
         super.positionChanged(oldPosition, newPosition, animal);
     }
 
+    public void consumptionAndReproduction(){
+        ArrayList<Animal> consumptionList = new ArrayList<Animal>();
+        ArrayList<ArrayList<Animal>> copulateList = new ArrayList<>();
+
+        animalMap.forEach((key, value)->{
+                if(grassMap.containsKey(key) && !value.isEmpty()){
+                    consumptionList.add(value.get(0));
+                }
+                if(value.size() >= 2){
+                    copulateList.add(value);
+                }
+        });
+        for (Animal animal:
+        consumptionList){
+            animal.eat(PLANT_NUTRITIOUSNESS);
+            this.removePlant(animal.getPosition());
+            this.availableGrassSlots.add(animal.getPosition());
+        }
+
+        for (ArrayList<Animal> animalList:
+             copulateList) {
+            if (animalList.get(0).getEnergy() > Reproduction.ENERGY_DECREASE && animalList.get(1).getEnergy() > Reproduction.ENERGY_DECREASE){
+            Reproduction reproduction = new Reproduction(animalList.get(0), animalList.get(1), this);
+            reproduction.reproduce();
+            }
+        }
+
+
+    }
+
+    private void removePlant(Vector2d plantToRemove){
+        if (grassMap.containsKey(plantToRemove))
+            grassMap.remove(plantToRemove);
+    }
+    public abstract Vector2d verifyMove(Vector2d oldVector, Vector2d newVector);
 
 }

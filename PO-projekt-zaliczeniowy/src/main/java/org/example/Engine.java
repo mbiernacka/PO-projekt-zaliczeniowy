@@ -1,4 +1,10 @@
 package org.example;
+
+import org.example.boundary.BoundaryGlobe;
+import org.example.boundary.BoundaryHellishPortal;
+
+import java.util.concurrent.TimeUnit;
+
 /*
 usunięcie martwych zwierząt z mapy,done
 skręt i przemieszczenie każdego zwierzęcia,done
@@ -13,23 +19,33 @@ public class Engine {
 
     }
     void run(){
-        AbstractWorldMap map = new BasicMap(10, new Vector2d(12,10));
+        int grassAmount = 10;
+        BoundaryHellishPortal map = new BoundaryHellishPortal(grassAmount, new Vector2d(12,10));
 
-        Animal animal2 = new Animal(map, new Vector2d(5, 5), new Integer[]{0, 2, 3, 4, 5, 6, 7}, 20);
-        Animal animal1 = new Animal(map, new Vector2d(3, 7), new Integer[]{0, 2, 2, 5, 1, 4, 6}, 50);
-
-
-        Animal animal3 = new Animal(map, new Vector2d(3, 7), new Integer[]{1, 2, 3, 4, 5, 6, 7}, 0);
-
-       // while(true) {
-            System.out.println(map);
+        Animal animal2 = new Animal(map, new Vector2d(0, 9), new Integer[]{0, 0, 0, 0, 0, 0, 0}, 20);
+   //    Animal animal1 = new Animal(map, new Vector2d(0, 9), new Integer[]{0, 2, 2, 5, 1, 4, 6}, 50);
+//
+//
+//        Animal animal3 = new Animal(map, new Vector2d(3, 7), new Integer[]{1, 2, 3, 4, 5, 6, 7}, 20);
+int i = 5;
+        while(i>0) {
+            i--;
+            //System.out.println(map);
             map.removeDeadAnimalAndMove();
-            System.out.println(map);
             map.sortAnimalMap();
-            // przejście jedzenia i rozmnażania
+            map.consumptionAndReproduction();
+           // map.createPlant();
+            System.out.println(map);
+
+            //TimeUnit.MINUTES.sleep(1);
+
+
+
+
+            //
             // spawn roślin
 
-       // }
+        }
     }
 }
 

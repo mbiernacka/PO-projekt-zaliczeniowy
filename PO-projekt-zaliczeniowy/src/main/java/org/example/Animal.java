@@ -19,7 +19,7 @@ public class Animal {
     private int age=0;
 
     private int numberOfKids=0;
-
+    private final int MOVE_COST = 2;
 
     private int currentGene = 0;
 
@@ -101,16 +101,17 @@ public class Animal {
 
     @Override
     public String toString() {
-        return switch (this.orientation){
-            case NORTH -> "N";
-            case EAST -> "E";
-            case SOUTH -> "S";
-            case WEST -> "W";
-            case NORTHEAST -> "NE";
-            case SOUTHEAST -> "SE";
-            case NORTHWEST -> "NW";
-            case SOUTHWEST -> "SW";
-        };
+        return energy + ",";
+//        return switch (this.orientation){
+//            case NORTH -> "N";
+//            case EAST -> "E";
+//            case SOUTH -> "S";
+//            case WEST -> "W";
+//            case NORTHEAST -> "NE";
+//            case SOUTHEAST -> "SE";
+//            case NORTHWEST -> "NW";
+//            case SOUTHWEST -> "SW";
+//        };
     }
 
     public boolean isAt(Vector2d position){
@@ -135,6 +136,7 @@ public class Animal {
 
     public void move(){
         age++;
+        this.decreaseEnergy(this.MOVE_COST);
         int gene = nextGene();
         MapDirection newOrientation = this.orientation;
         int i = 0;
@@ -144,8 +146,10 @@ public class Animal {
         }
         this.orientation = newOrientation;
         //dodałem tylko tą linijkę, jak coś xd
-        this.positionChanged(this.position ,this.position.add(this.orientation.toUnitVector()), this);
-        this.position = this.position.add(this.orientation.toUnitVector());
+        Vector2d animalNewPosision = map.verifyMove(this.position, this.position.add(this.orientation.toUnitVector()));
+       this.positionChanged(this.position ,animalNewPosision, this);
+
+        this.position = animalNewPosision;
 
         System.out.println(this.position.toString());
         System.out.println(newOrientation.toString());

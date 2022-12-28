@@ -11,13 +11,13 @@ public class Reproduction {
     private final Vector2d currentPosition;
     //gdzies musi byc decydowanie ktore zwierzeta z danego pola beda sie rozmnazac. w mapie?
     //private final int MIN_ENERGY = 10;
-    private final int ENERGY_DECREASE = 5;
+    static public final int ENERGY_DECREASE = 5;
 
-    public Reproduction(Animal parent1, Animal parent2, IWorldMap map, Vector2d currentPosition){
+    public Reproduction(Animal parent1, Animal parent2, IWorldMap map){
         this.parent1 = parent1;
         this.parent2 = parent2;
         this.map = map;
-        this.currentPosition = currentPosition;
+        this.currentPosition = parent1.getPosition();
     }
 
     //metoda do obliczania udziału genów rodziców
@@ -119,7 +119,7 @@ public class Reproduction {
     public void reproduce(){
         Animal childAnimal = createChildAnimal();
         mutation(childAnimal);
-        this.map.place(childAnimal);
+        //this.map.place(childAnimal);
         this.parent1.decreaseEnergy(ENERGY_DECREASE);
         this.parent1.increaseNumberOfKids();
         this.parent2.decreaseEnergy(ENERGY_DECREASE);

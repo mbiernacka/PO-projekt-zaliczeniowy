@@ -52,11 +52,11 @@ public abstract class AbstractWorldMap implements IWorldMap{
         this.animalMap.get(position).add(animal);
     }
     public void removeDeadAnimalAndMove(){
-        ArrayList keyList = new ArrayList();
-        ArrayList animalList = new ArrayList();
+        ArrayList<Vector2d> keyList = new ArrayList<Vector2d>();
+        ArrayList<Animal> animalList = new ArrayList<Animal> ();
 
         ArrayList<Animal> aliveAnimalList = new ArrayList<>();
-        ArrayList aliveKeyList = new ArrayList<>();
+        ArrayList<Vector2d> aliveKeyList = new ArrayList<>();
 
         animalMap.forEach((key, value)->{
 
@@ -99,6 +99,7 @@ public abstract class AbstractWorldMap implements IWorldMap{
         }
 
 
+    public abstract Vector2d verifyMove(Vector2d oldVector, Vector2d newVector);
 
     }
 
