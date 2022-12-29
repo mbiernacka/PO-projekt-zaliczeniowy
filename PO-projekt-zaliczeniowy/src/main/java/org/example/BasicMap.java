@@ -3,14 +3,11 @@ package org.example;
 import org.example.boundary.MapBoundary;
 
 import java.lang.Math;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 public abstract class BasicMap extends AbstractWorldMap {
     private int grassAmount;
-    private HashMap<Vector2d, Plant> grassMap;
+    private Map<Vector2d, Plant> grassMap;
 
     private ArrayList<Vector2d> availableGrassSlots;
 
@@ -34,6 +31,9 @@ public abstract class BasicMap extends AbstractWorldMap {
 
     }
 
+    public Map<Vector2d, Plant> getGrassMap() {
+        return  Map.copyOf(this.grassMap);
+    }
 
     public void createPlant(){
         for (int i = 0; i < this.NEW_PLANTS; i++) {
@@ -66,15 +66,7 @@ public abstract class BasicMap extends AbstractWorldMap {
     }
 
     protected void centerPlant(){
-
-        int centerX = this.getUpperRight().x /2;
         int centerY = this.getUpperRight().y /2;
-        int radiusX =centerX;
-        int y = centerY;
-        int radiusY = 0;
-        //check center
-        int maxEmpty = this.getUpperRight().x;
-        boolean yCheck = true;
 
         int iterationCounter = 0;
         boolean stop = false;
@@ -238,5 +230,12 @@ public abstract class BasicMap extends AbstractWorldMap {
             grassMap.remove(plantToRemove);
     }
     public abstract Vector2d verifyMove(Vector2d oldVector, Vector2d newVector);
+
+    public Statistics getStats(){
+        Statistics statistics = new Statistics(this);
+
+        return statistics;
+    }
+
 
 }

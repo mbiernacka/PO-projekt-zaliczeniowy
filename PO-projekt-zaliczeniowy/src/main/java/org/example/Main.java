@@ -1,7 +1,9 @@
 package org.example;
 
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
 //        AbstractWorldMap map = new BasicMap(10, new Vector2d(12,10));
 //

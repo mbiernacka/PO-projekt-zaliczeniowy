@@ -3,6 +3,7 @@ package org.example;
 import org.example.boundary.BoundaryGlobe;
 import org.example.boundary.BoundaryHellishPortal;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /*
@@ -18,7 +19,7 @@ public class Engine {
     Engine(){
 
     }
-    void run(){
+    void run() throws IOException {
         int grassAmount = 10;
         BoundaryHellishPortal map = new BoundaryHellishPortal(grassAmount, new Vector2d(12,10));
 
@@ -36,7 +37,7 @@ int i = 5;
             map.consumptionAndReproduction();
            // map.createPlant();
             System.out.println(map);
-
+           System.out.println(map.getStats().toCsv());
             //TimeUnit.MINUTES.sleep(1);
 
 
