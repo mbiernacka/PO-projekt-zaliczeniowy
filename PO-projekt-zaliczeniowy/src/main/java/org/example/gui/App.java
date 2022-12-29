@@ -10,10 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import org.example.AbstractWorldMap;
-import org.example.BasicMap;
-import org.example.Engine;
-import org.example.Vector2d;
+import org.example.*;
 import org.example.boundary.BoundaryGlobe;
 import org.example.boundary.BoundaryHellishPortal;
 import org.example.interfaces.IAppObserver;
@@ -135,9 +132,13 @@ public class App extends Application implements IAppObserver {
             }
         }
 
-    public void init(){
+    public void init(String path) throws FileNotFoundException {
+        //wczytwana
+        org.example.Parameters parameters = new org.example.Parameters(path);
         this.map = new BoundaryGlobe(10, new Vector2d(12,10));
         Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4), new Vector2d(5,7)};
+
+
         this.engine = new Engine(map, positions);
         engine.setDelay(moveDelay);
         engine.addObserver(this);
@@ -153,4 +154,6 @@ public class App extends Application implements IAppObserver {
             }
         });
     }
+
+
 }

@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Animal implements IMapElement {
+    //todo raportduciton uniezależnienie od liczby genów, modyfikowalna ilość
+
     public static final int NUMBER_OF_GENES = 7;
     private MapDirection orientation;
     private Vector2d position;

@@ -2,6 +2,7 @@ package org.example;
 
 import javafx.application.Application;
 import org.example.gui.App;
+import org.example.gui.Dashboard;
 
 import java.io.IOException;
 
@@ -22,7 +23,8 @@ public class Main {
 //        System.out.println(map.getAnimalMap());
 //Engine engine = new Engine();
 //engine.run();
-        Application.launch(App.class, args);
+        Application.launch(Dashboard.class,args);
+        //Application.launch(App.class, args);
 //       animal1.move(0);
 //        animal2.move(4);
 //        animal1.move(0);

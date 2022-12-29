@@ -1,25 +1,36 @@
 package org.example;
 // temp class dodana na testy
 
+import javafx.application.Application;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+class MyApplication extends Application {
 
-public class playground {
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("1.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
-    public static void main(String[] args){
-        HashMap<String, ArrayList<String>> animalMap = new HashMap<>();
-        if(animalMap.get("a") != null){
-            ArrayList<String> ar = animalMap.get("a");
-            ar.add("test");
+    }
 
-        }else {
-            animalMap.put("a", new ArrayList<>());
+public class playground  {
 
-        }
-        System.out.println(animalMap);
-        System.out.println(animalMap.get("a"));
+
+    public static void main(String[] args) {
+        //Application.launch(MyApplication.class, args);
     }
 }
 /*
