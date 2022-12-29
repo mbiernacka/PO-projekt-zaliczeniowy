@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.interfaces.IMapElement;
 import org.example.interfaces.IPositionChangeObserver;
 import org.example.interfaces.IWorldMap;
 
@@ -8,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Animal {
+public class Animal implements IMapElement {
     public static final int NUMBER_OF_GENES = 7;
     private MapDirection orientation;
     private Vector2d position;
@@ -59,8 +60,18 @@ public class Animal {
         return orientation;
     }
 
+    @Override
+    public String getTexture() {
+        return "src/main/resources/Cat_north.png";
+    }
+
     public Vector2d getPosition() {
         return position;
+    }
+
+    @Override
+    public String getLabel() {
+        return this.getAge()+"";
     }
 
     public int getEnergy(){
@@ -140,7 +151,7 @@ public class Animal {
         int gene = nextGene();
         MapDirection newOrientation = this.orientation;
         int i = 0;
-        while (i < gene){
+        while (i < genotype[gene]){
             newOrientation = newOrientation.next();
             i++;
         }

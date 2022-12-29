@@ -1,9 +1,13 @@
 package org.example;
 
+import javafx.application.Application;
+import org.example.gui.App;
+
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        //todo krzaki na x0
 
 //        AbstractWorldMap map = new BasicMap(10, new Vector2d(12,10));
 //
@@ -16,9 +20,9 @@ public class Main {
 //        System.out.println(map.getAnimalMap());
 //       map.sortAnimalMap();
 //        System.out.println(map.getAnimalMap());
-Engine engine = new Engine();
-engine.run();
-
+//Engine engine = new Engine();
+//engine.run();
+        Application.launch(App.class, args);
 //       animal1.move(0);
 //        animal2.move(4);
 //        animal1.move(0);

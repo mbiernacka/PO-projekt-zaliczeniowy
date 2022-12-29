@@ -2,8 +2,11 @@ package org.example;
 
 import org.example.boundary.BoundaryGlobe;
 import org.example.boundary.BoundaryHellishPortal;
+import org.example.interfaces.IAppObserver;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /*
@@ -15,38 +18,57 @@ konsumpcja roślin na których pola weszły zwierzęta,
 rozmnażanie się najedzonych zwierząt znajdujących się na tym samym polu,
 wzrastanie nowych roślin na wybranych polach mapy.
  */
-public class Engine {
-    Engine(){
-
+public class Engine implements Runnable {
+    private final List<IAppObserver> observerList;
+    private int moveDelay;
+    BasicMap map;
+    Vector2d[] positions;
+   public Engine(BasicMap map, Vector2d[] positions){
+        this.observerList = new ArrayList<>();
+        this.map = map;
+        this.positions = positions;
     }
-    void run() throws IOException {
-        int grassAmount = 10;
-        BoundaryHellishPortal map = new BoundaryHellishPortal(grassAmount, new Vector2d(12,10));
-
-        Animal animal2 = new Animal(map, new Vector2d(0, 9), new Integer[]{0, 0, 0, 0, 0, 0, 0}, 20);
-   //    Animal animal1 = new Animal(map, new Vector2d(0, 9), new Integer[]{0, 2, 2, 5, 1, 4, 6}, 50);
+    public void run() {
+//        for (Vector2d v:
+//             this.positions) {
+//            new Animal(map, v, new Integer[]{0, 0, 0, 0, 0, 0, 0}, 20);
 //
-//
-//        Animal animal3 = new Animal(map, new Vector2d(3, 7), new Integer[]{1, 2, 3, 4, 5, 6, 7}, 20);
-int i = 5;
+//        }
+//        new Animal(map, new Vector2d(0,0), new Integer[]{0, 0, 0, 0, 0, 0, 0}, 20);
+//        new Animal(map, new Vector2d(5,5), new Integer[]{0, 1, 2, 3, 4, 5, 6}, 20);
+//        new Animal(map, new Vector2d(8,2), new Integer[]{4, 2, 3, 7, 5, 6, 6}, 20);
+//        new Animal(map, new Vector2d(8,2), new Integer[]{4, 2, 3, 7, 5, 6, 6}, 20);
+        int i = 20;
         while(i>0) {
             i--;
-            //System.out.println(map);
             map.removeDeadAnimalAndMove();
+            this.notifyObservers();
             map.sortAnimalMap();
             map.consumptionAndReproduction();
-           // map.createPlant();
+            map.createPlant();
             System.out.println(map);
-           System.out.println(map.getStats().toCsv());
-            //TimeUnit.MINUTES.sleep(1);
+            System.out.println(map.getStats().toCsv());
 
 
-
-
-            //
-            // spawn roślin
-
+            try {
+                Thread.sleep(moveDelay);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
+
+    public void addObserver(IAppObserver observer){
+        this.observerList.add(observer);
+    }
+    public void setDelay(int delay) {
+        moveDelay = delay;
+    }
+    public void notifyObservers(){
+        for (IAppObserver observer: this.observerList){
+            observer.positionAppChanged();
+        }
+    }
+
 }
 
