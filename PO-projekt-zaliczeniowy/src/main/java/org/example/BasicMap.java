@@ -7,19 +7,22 @@ import java.util.*;
 
 public abstract class BasicMap extends AbstractWorldMap {
     private int grassAmount;
-    private Map<Vector2d, Plant> grassMap;
+
 
     private ArrayList<Vector2d> availableGrassSlots;
 
     private  Vector2d size;
     private  final int NEW_PLANTS;
-    private final int PLANT_NUTRITIOUSNESS = 6;
+    private final int PLANT_NUTRITIOUSNESS;
+    private final int energyDecrease;
 //new v2
 
-    public BasicMap(int grassAmount, Vector2d size){
+    public BasicMap(int grassAmount, Vector2d size, int PLANT_NUTRITIOUSNESS, int energyDecrease){
         this.grassAmount =grassAmount;
         this.grassMap = new HashMap<>();
         this.size = size;
+        this.PLANT_NUTRITIOUSNESS = PLANT_NUTRITIOUSNESS;
+        this.energyDecrease = energyDecrease;
         availableGrassSlots = new ArrayList<>();
         for (int i = 0; i <= this.size.x; i++) {
             for (int j = 0; j <= this.size.y; j++) {
@@ -154,8 +157,8 @@ public abstract class BasicMap extends AbstractWorldMap {
 
     @Override
     public Object objectAt(Vector2d position){
-        Object obj = super.objectAt(position);
-        if (obj instanceof ArrayList<?>) {
+        Object obj = this.animalMap.getOrDefault(position, null);;
+        if (obj != null) {
             return obj;
         }
         return grassMap.getOrDefault(position, null);
@@ -209,15 +212,18 @@ public abstract class BasicMap extends AbstractWorldMap {
         });
         for (Animal animal:
         consumptionList){
-            animal.eat(PLANT_NUTRITIOUSNESS);
-            this.removePlant(animal.getPosition());
-            this.availableGrassSlots.add(animal.getPosition());
+
+            if(this.removePlant(animal.getPosition())){
+                animal.eat(PLANT_NUTRITIOUSNESS);
+            }
+
         }
 
         for (ArrayList<Animal> animalList:
-             copulateList) {
-            if (animalList.get(0).getEnergy() > Reproduction.ENERGY_DECREASE && animalList.get(1).getEnergy() > Reproduction.ENERGY_DECREASE){
-            Reproduction reproduction = new Reproduction(animalList.get(0), animalList.get(1), this);
+             copulateList) {//todo to można jakoś ładniej może?
+            Reproduction reproduction = new Reproduction(animalList.get(0), animalList.get(1), this, energyDecrease);
+            if (animalList.get(0).getEnergy() > reproduction.getENERGY_DECREASE() && animalList.get(1).getEnergy() > reproduction.getENERGY_DECREASE()){
+
             reproduction.reproduce();
             }
         }
@@ -225,9 +231,21 @@ public abstract class BasicMap extends AbstractWorldMap {
 
     }
 
-    private void removePlant(Vector2d plantToRemove){
+    private boolean removePlant(Vector2d plantToRemove){
+        //tu działa
+
         if (grassMap.containsKey(plantToRemove))
+        {
+
             grassMap.remove(plantToRemove);
+            this.availableGrassSlots.add(plantToRemove);
+            System.out.println("Ava" + availableGrassSlots);
+            return true;
+        }
+return false;
+
+
+
     }
     public abstract Vector2d verifyMove(Vector2d oldVector, Vector2d newVector);
 

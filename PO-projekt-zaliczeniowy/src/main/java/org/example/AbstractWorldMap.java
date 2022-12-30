@@ -7,7 +7,7 @@ import org.example.interfaces.IWorldMap;
 public abstract class AbstractWorldMap implements IWorldMap{
     protected Map<Vector2d, ArrayList<Animal>> animalMap;
     protected final MapVisualizer mapVisualizer;
-
+    protected Map<Vector2d, Plant> grassMap;
     protected AbstractWorldMap(){
         this.animalMap = new HashMap<>();
         this.mapVisualizer = new MapVisualizer(this);
@@ -19,10 +19,7 @@ public abstract class AbstractWorldMap implements IWorldMap{
         return mapVisualizer.draw(calculateLowerBound(), calculateUpperBound());
     }
 
-    public Object objectAt(Vector2d position){
-
-        return this.animalMap.getOrDefault(position, null);
-    }
+    public abstract Object objectAt(Vector2d position);
 
     public abstract Vector2d calculateLowerBound();
     public abstract Vector2d calculateUpperBound();
@@ -56,7 +53,7 @@ public abstract class AbstractWorldMap implements IWorldMap{
         ArrayList<Animal> animalList = new ArrayList<Animal> ();
 
         ArrayList<Animal> aliveAnimalList = new ArrayList<>();
-        ArrayList<Vector2d> aliveKeyList = new ArrayList<>();
+
 
         animalMap.forEach((key, value)->{
 

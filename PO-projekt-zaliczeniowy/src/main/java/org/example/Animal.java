@@ -8,15 +8,17 @@ import org.example.interfaces.IWorldMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 public class Animal implements IMapElement {
     //todo raportduciton uniezależnienie od liczby genów, modyfikowalna ilość
 
-    public static final int NUMBER_OF_GENES = 7;
+    public final int NUMBER_OF_GENES;
     private MapDirection orientation;
     private Vector2d position;
     private final IWorldMap map;
-    private Integer[] genotype = new Integer[NUMBER_OF_GENES]; //nowa klasa
+    protected Integer[] genotype; //nowa klasa
     private int energy;
 
     private int age=0;
@@ -25,6 +27,8 @@ public class Animal implements IMapElement {
     private final int MOVE_COST = 2;
 
     private int currentGene = 0;
+
+
 
     private int nextGene(){
         int curr = currentGene; //6
@@ -44,22 +48,38 @@ public class Animal implements IMapElement {
 //        this(map, new Vector2d(2,2));
 //    }
 
-    public Animal(){
-        this.map = new BoundaryHellishPortal(0,new Vector2d(12,12));
-    }
-    public Animal(IWorldMap map, Vector2d initialPosition, Integer[]genotype, int energy){
-        this.orientation = MapDirection.NORTH;
-        this.position = initialPosition;
-        this.energy = energy;
-        this.map = map;
+//    public Animal(){
+//        this.map = new BoundaryHellishPortal(0,new Vector2d(12,12));
+//    }
 
-        for (int i=0; i <= genotype.length-1; i++){
-            this.genotype[i] = genotype[i];
+    public Animal(IWorldMap map, Vector2d initialPosition, int baseEnergy, int numOfGenes){
+        this(map,initialPosition,IntStream.of( new Random().ints(numOfGenes, 0, numOfGenes-1).toArray() ).boxed().toArray( Integer[]::new ), baseEnergy, numOfGenes);
+
+    }
+
+    public Animal(IWorldMap map, Vector2d initialPosition,Integer[] genes, int baseEnergy, int numOfGenes){
+        {
+            this.orientation = MapDirection.NORTH;
+            this.position = initialPosition;
+            this.energy = baseEnergy;
+            this.map = map;
+            this.NUMBER_OF_GENES = numOfGenes;
+            this.genotype = genes;
+            for (int i=0; i <= genotype.length-1; i++){
+                this.genotype[i] = genotype[i];
+            }
+            this.observerList = new ArrayList<>();
+            map.place(this);
         }
-        this.observerList = new ArrayList<>();
-        map.place(this);
     }
 
+        protected Integer[] gererateGenotype(){
+        return new Integer[]{1,2,3,4,5};
+    }
+
+    public int getNUMBER_OF_GENES() {
+        return NUMBER_OF_GENES;
+    }
 
     public MapDirection getOrientation() {
         return orientation;
@@ -76,7 +96,7 @@ public class Animal implements IMapElement {
 
     @Override
     public String getLabel() {
-        return this.getAge()+"";
+        return this.getEnergy()+"";
     }
 
     public int getEnergy(){

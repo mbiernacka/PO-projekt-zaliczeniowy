@@ -22,22 +22,24 @@ public class Engine implements Runnable {
     private final List<IAppObserver> observerList;
     private int moveDelay;
     BasicMap map;
-    Vector2d[] positions;
-   public Engine(BasicMap map, Vector2d[] positions){
+    private Parameters parameters;
+
+
+   public Engine(BasicMap map, Parameters parameters){
         this.observerList = new ArrayList<>();
         this.map = map;
-        this.positions = positions;
+        this.parameters = parameters;
     }
     public void run() {
-//        for (Vector2d v:
-//             this.positions) {
-//            new Animal(map, v, new Integer[]{0, 0, 0, 0, 0, 0, 0}, 20);
-//
-//        }
-        new Animal(map, new Vector2d(0,0), new Integer[]{0, 0, 0, 0, 0, 0, 0}, 20);
-        new Animal(map, new Vector2d(5,5), new Integer[]{0, 1, 2, 3, 4, 5, 6}, 20);
-        new Animal(map, new Vector2d(8,2), new Integer[]{4, 2, 3, 7, 5, 6, 6}, 20);
-        new Animal(map, new Vector2d(8,2), new Integer[]{4, 2, 3, 7, 5, 6, 6}, 20);
+        for (int i =0; i< parameters.getParamList().get(6);++i) {
+            Vector2d vector2d = new Vector2d(((int)(Math.random()* 1000)% map.getUpperRight().x),((int)(Math.random()* 1000))% map.getUpperRight().y);
+            new Animal(map, vector2d,new Integer[]{0, 1, 2, 3, 4, 5, 6}, parameters.getParamList().get(7), parameters.getParamList().get(10));
+
+        }
+        new Animal(map, new Vector2d(0,0), new Integer[]{0, 0, 0, 0, 0, 0, 0}, parameters.getParamList().get(7), parameters.getParamList().get(10));
+//        new Animal(map, new Vector2d(5,5), new Integer[]{0, 1, 2, 3, 4, 5, 6}, (Integer) parameters.getParamList().get(7),(Integer)parameters.getParamList().get(10));
+//        new Animal(map, new Vector2d(8,2), new Integer[]{4, 2, 3, 7, 5, 6, 6}, (Integer) parameters.getParamList().get(7),(Integer)parameters.getParamList().get(10));
+//        new Animal(map, new Vector2d(8,2), new Integer[]{4, 2, 7, 8, 9, 4, 6}, (Integer) parameters.getParamList().get(7),(Integer)parameters.getParamList().get(10));
         int i = 20;
         while(true) {
             i--;

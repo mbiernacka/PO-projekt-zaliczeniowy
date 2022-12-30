@@ -133,7 +133,7 @@ public class App extends Application implements IAppObserver {
                                 Label element = new Label(object.toString());
                                 //element.setOpaque(true);
 
-                                element.setTextFill(javafx.scene.paint.Color.rgb(0,1,0));
+
                                 element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(8,238,8), CornerRadii.EMPTY, Insets.EMPTY)));
                                 gridPane.add(element,p,w);
 //                                gridPane.add(element.getvBox(), p, w);
@@ -152,12 +152,17 @@ public class App extends Application implements IAppObserver {
 
     public void init(String path) throws FileNotFoundException {
         //wczytwana
-        org.example.Parameters parameters = new org.example.Parameters(path);
-        this.map = new BoundaryGlobe(10, new Vector2d(12,10));
-        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4), new Vector2d(5,7)};
+        final org.example.Parameters parameters = new org.example.Parameters(path);
+       if (parameters.getParamList().get(2)==0) {
+           this.map = new BoundaryGlobe(parameters.getParamList().get(3), new Vector2d(parameters.getParamList().get(0), parameters.getParamList().get(1)), parameters.getParamList().get(4), parameters.getParamList().get(8));
+       }else {
+           this.map = new BoundaryHellishPortal(parameters.getParamList().get(3), new Vector2d(parameters.getParamList().get(0), parameters.getParamList().get(1)),parameters.getParamList().get(4),parameters.getParamList().get(8));
+
+       }
 
 
-        this.engine = new Engine(map, positions);
+
+        this.engine = new Engine(map, parameters);
         engine.setDelay(moveDelay);
         engine.addObserver(this);
 

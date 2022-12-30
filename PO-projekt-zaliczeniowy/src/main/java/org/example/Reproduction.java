@@ -11,16 +11,20 @@ public class Reproduction {
     private final Vector2d currentPosition;
     //gdzies musi byc decydowanie ktore zwierzeta z danego pola beda sie rozmnazac. w mapie?
     //private final int MIN_ENERGY = 10;
-    static public final int ENERGY_DECREASE = 5;
+    public  int ENERGY_DECREASE;
 
-    public Reproduction(Animal parent1, Animal parent2, IWorldMap map){
+    public Reproduction(Animal parent1, Animal parent2, IWorldMap map, int ENERGY_DECREASE){
         this.parent1 = parent1;
         this.parent2 = parent2;
         this.map = map;
+        this.ENERGY_DECREASE = ENERGY_DECREASE;
         this.currentPosition = parent1.getPosition();
     }
 
-    //metoda do obliczania udziału genów rodziców
+    public int getENERGY_DECREASE() {
+        return ENERGY_DECREASE;
+    }
+//metoda do obliczania udziału genów rodziców
     //wybieranie stron genów
     //tworzenie nowego zwierzaka
     //mutacja
@@ -52,7 +56,7 @@ public class Reproduction {
     public Animal createChildAnimal(){
         int[] sides = drawSides();
         int[] genesDivision = calculateGenesDivision();
-        Integer[] newChildGenes = new Integer[Animal.NUMBER_OF_GENES];
+        Integer[] newChildGenes = new Integer[parent1.getNUMBER_OF_GENES()];
         Integer[] parent1Genes = this.parent1.getGenotype();
         Integer[] parent2Genes = this.parent2.getGenotype();
 
@@ -77,7 +81,7 @@ public class Reproduction {
             System.arraycopy(parent1Genes, 0, newChildGenes, genesDivision[1],genesDivision[0]);
         }
         int NEW_CHILD_ENERGY = 2 * ENERGY_DECREASE;
-        return new Animal(this.map, this.currentPosition, newChildGenes, NEW_CHILD_ENERGY);
+        return new Animal(this.map, this.currentPosition, newChildGenes, NEW_CHILD_ENERGY, 10);
     }
 
     public void mutation(Animal childAnimal){
@@ -86,7 +90,7 @@ public class Reproduction {
         Integer[] shuffledChildGenes = new Integer[]{0,1,2,3,4,5,6};
 
         //ile genów ma sie zmienic
-        int numberOfGenesToMutate = (int) ((Math.random() * ((Animal.NUMBER_OF_GENES+1)-1)) +1);
+        int numberOfGenesToMutate = (int) ((Math.random() * ((childAnimal.getNUMBER_OF_GENES()+1)-1)) +1);
 
         //shuffle genow w celu zmutowania losowych genow
         List<Integer> intList = Arrays.asList(shuffledChildGenes);
@@ -98,7 +102,7 @@ public class Reproduction {
         numbers.add(1);
         numbers.add(-1);
         //
-
+//todo pozmieniać
         //mutacja
         for(int i=0; i <= numberOfGenesToMutate-1; i++){
             Collections.shuffle(numbers);

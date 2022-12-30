@@ -8,8 +8,8 @@ public class BoundaryGlobe extends BasicMap
 {
 
 
-    public BoundaryGlobe(int grassAmount, Vector2d size) {
-        super(grassAmount, size);
+    public BoundaryGlobe(int grassAmount, Vector2d size, int PLANT_NUTRITIOUSNESS, int energyDecrease) {
+        super(grassAmount, size,PLANT_NUTRITIOUSNESS,energyDecrease);
     }
 
     public Vector2d verifyMove(Vector2d oldVector, Vector2d newVector){

@@ -102,6 +102,7 @@ public class MapVisualizer {
 
         }else {
                 Object object = this.map.objectAt(currentPosition);
+                System.out.println("PpO " + object);
                 if (object != null) {
                     result = object.toString();
                 } else {
