@@ -3,6 +3,7 @@ package org.example.gui;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,8 +17,10 @@ import org.example.boundary.BoundaryHellishPortal;
 import org.example.interfaces.IAppObserver;
 import org.example.interfaces.IMapElement;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.List;
 
 public class App extends Application implements IAppObserver {
 
@@ -26,7 +29,10 @@ public class App extends Application implements IAppObserver {
     private final int CONSTRAINTS = 55;
     private final int SQUARESIZE = 50;
     private Engine engine;
-    private final static int moveDelay = 1500;
+    private final static int moveDelay = 750;
+    //GUIElementBox element = new GUIElementBox(new Animal());
+
+
 
     public void start(Stage primaryStage) throws FileNotFoundException {
 
@@ -108,19 +114,31 @@ public class App extends Application implements IAppObserver {
                             for (IMapElement o:
                                  list) {
                                 if (o != null) {
-                                    GUIElementBox element = new GUIElementBox(o);
-                                    gridPane.add(element.getvBox(), p, w);
-                                    GridPane.setHalignment(element.getvBox(), HPos.CENTER);
-                                    GridPane.setHalignment(element.getvBox(), HPos.CENTER);
+
+                                    Label element = new Label(o.toString());
+                                    //element.setOpaque(true);
+
+                                    //element.setTextFill(javafx.scene.paint.Color.rgb(205,37,245));
+                                    element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(205,37,245), CornerRadii.EMPTY, Insets.EMPTY)));
+                                    gridPane.add(element,p,w);
+//                                    gridPane.add(element.getvBox(), p, w);
+//                                    GridPane.setHalignment(element.getvBox(), HPos.CENTER);
+//                                    GridPane.setHalignment(element.getvBox(), HPos.CENTER);
                                 }
                             }
                         }else {
                             IMapElement object = (IMapElement) this.map.objectAt(new Vector2d(j, i));
                             if (object != null) {
-                                GUIElementBox element = new GUIElementBox(object);
-                                gridPane.add(element.getvBox(), p, w);
-                                GridPane.setHalignment(element.getvBox(), HPos.CENTER);
-                                GridPane.setHalignment(element.getvBox(), HPos.CENTER);
+                               // GUIElementBox element = new GUIElementBox(object);
+                                Label element = new Label(object.toString());
+                                //element.setOpaque(true);
+
+                                element.setTextFill(javafx.scene.paint.Color.rgb(0,1,0));
+                                element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(8,238,8), CornerRadii.EMPTY, Insets.EMPTY)));
+                                gridPane.add(element,p,w);
+//                                gridPane.add(element.getvBox(), p, w);
+//                                GridPane.setHalignment(element.getvBox(), HPos.CENTER);
+//                                GridPane.setHalignment(element.getvBox(), HPos.CENTER);
                             }
                         }
 

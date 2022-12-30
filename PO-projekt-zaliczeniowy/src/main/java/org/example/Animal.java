@@ -1,11 +1,11 @@
 package org.example;
 
+import org.example.boundary.BoundaryHellishPortal;
 import org.example.interfaces.IMapElement;
 import org.example.interfaces.IPositionChangeObserver;
 import org.example.interfaces.IWorldMap;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,6 +44,9 @@ public class Animal implements IMapElement {
 //        this(map, new Vector2d(2,2));
 //    }
 
+    public Animal(){
+        this.map = new BoundaryHellishPortal(0,new Vector2d(12,12));
+    }
     public Animal(IWorldMap map, Vector2d initialPosition, Integer[]genotype, int energy){
         this.orientation = MapDirection.NORTH;
         this.position = initialPosition;

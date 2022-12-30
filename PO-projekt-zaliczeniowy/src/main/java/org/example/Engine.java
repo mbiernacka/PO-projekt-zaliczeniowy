@@ -39,7 +39,7 @@ public class Engine implements Runnable {
         new Animal(map, new Vector2d(8,2), new Integer[]{4, 2, 3, 7, 5, 6, 6}, 20);
         new Animal(map, new Vector2d(8,2), new Integer[]{4, 2, 3, 7, 5, 6, 6}, 20);
         int i = 20;
-        while(i>0) {
+        while(true) {
             i--;
             map.removeDeadAnimalAndMove();
             this.notifyObservers();
