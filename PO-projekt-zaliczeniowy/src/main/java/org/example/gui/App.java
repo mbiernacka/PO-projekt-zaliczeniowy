@@ -41,13 +41,34 @@ public class App extends Application implements IAppObserver {
 
         TextField moves = new TextField();
         Button start = new Button("Start");
-        VBox top = new VBox(moves, start);
+        Button pause = new Button("Pause");
+        Button resume = new Button("Resume");
+        Label stats = new Label("");
+        stats.setVisible(false);
+        VBox top = new VBox(moves, start,pause,resume,stats);
         VBox main = new VBox(top, gridPane);
         HBox body = new HBox(main);
+        //Thread thread;
+        Thread thread = new Thread(engine);
 
         start.setOnAction(click -> {
-            Thread thread = new Thread(engine);
+
             thread.start();
+        });
+
+        pause.setOnAction(click -> {
+            try {
+                stats.setText(map.getStats().toCsv());
+                stats.setVisible(true);
+                thread.suspend();
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        resume.setOnAction(click -> {
+            thread.resume();
         });
 
         newGridPane();
