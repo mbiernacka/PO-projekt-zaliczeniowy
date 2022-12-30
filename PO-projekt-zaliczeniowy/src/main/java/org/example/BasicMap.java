@@ -17,13 +17,14 @@ public abstract class BasicMap extends AbstractWorldMap {
     private final int energyDecrease;
 //new v2
 
-    public BasicMap(int grassAmount, Vector2d size, int PLANT_NUTRITIOUSNESS, int energyDecrease){
+    public BasicMap( int grassAmount, Vector2d size, int PLANT_NUTRITIOUSNESS, int energyDecrease){
         this.grassAmount =grassAmount;
         this.grassMap = new HashMap<>();
         this.size = size;
         this.PLANT_NUTRITIOUSNESS = PLANT_NUTRITIOUSNESS;
         this.energyDecrease = energyDecrease;
         availableGrassSlots = new ArrayList<>();
+
         for (int i = 0; i <= this.size.x; i++) {
             for (int j = 0; j <= this.size.y; j++) {
                 availableGrassSlots.add(new Vector2d(i,j));
@@ -33,6 +34,8 @@ public abstract class BasicMap extends AbstractWorldMap {
         createPlant();
 
     }
+
+
 
     public Map<Vector2d, Plant> getGrassMap() {
         return  Map.copyOf(this.grassMap);

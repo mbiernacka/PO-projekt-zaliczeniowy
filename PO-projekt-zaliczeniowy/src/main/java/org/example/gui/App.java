@@ -18,7 +18,9 @@ import org.example.interfaces.IAppObserver;
 import org.example.interfaces.IMapElement;
 
 import java.awt.*;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class App extends Application implements IAppObserver {
     private final int SQUARESIZE = 50;
     private Engine engine;
     private final static int moveDelay = 750;
+
     //GUIElementBox element = new GUIElementBox(new Animal());
 
 
@@ -160,9 +163,26 @@ public class App extends Application implements IAppObserver {
 
        }
 
+        //1.csv 2.csv
+        int i = 0;
+        File file;
+       while (true){
+       try {
+           file = new File(String.format("%d.csv", i));
+            i++;
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+                break;
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+       }
 
-
-        this.engine = new Engine(map, parameters);
+        this.engine = new Engine(map, parameters, file);
         engine.setDelay(moveDelay);
         engine.addObserver(this);
 
