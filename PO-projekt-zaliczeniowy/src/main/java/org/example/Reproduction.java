@@ -81,7 +81,7 @@ public class Reproduction {
             System.arraycopy(parent1Genes, 0, newChildGenes, genesDivision[1],genesDivision[0]);
         }
         int NEW_CHILD_ENERGY = 2 * ENERGY_DECREASE;
-        return new Animal(this.map, this.currentPosition, newChildGenes, NEW_CHILD_ENERGY, 10);
+        return new Animal(this.map, this.currentPosition, newChildGenes, NEW_CHILD_ENERGY, parent1.getNUMBER_OF_GENES());
     }
 
     public void mutation(Animal childAnimal){

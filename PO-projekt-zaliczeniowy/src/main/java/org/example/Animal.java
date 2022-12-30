@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 public class Animal implements IMapElement {
     //todo raportduciton uniezależnienie od liczby genów, modyfikowalna ilość
 
-    public final int NUMBER_OF_GENES;
+    protected final int NUMBER_OF_GENES;
     private MapDirection orientation;
     private Vector2d position;
     private final IWorldMap map;
