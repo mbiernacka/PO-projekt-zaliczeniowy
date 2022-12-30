@@ -60,8 +60,9 @@ public class Statistics {
             return String.format("%d;%d;%d;%.2f;%.2f",animalsCounter,
                     plantsCounter, emptyFieldsCounter, avEnergy, avLifespan);
     }
-//    @Override
-//    public String toString() {
-//        return ;
-//    }
+    @Override
+    public String toString() {
+        return String.format("number of animals: %d\n number of plants: %d\n empty fields: %d \naverage energy %.2f\naverage lifespan: %.2f",animalsCounter,
+                plantsCounter, emptyFieldsCounter, avEnergy, avLifespan);
+    }
 }

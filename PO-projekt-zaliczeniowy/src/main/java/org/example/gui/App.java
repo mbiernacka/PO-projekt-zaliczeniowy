@@ -58,7 +58,7 @@ public class App extends Application implements IAppObserver {
 
         pause.setOnAction(click -> {
             try {
-                stats.setText(map.getStats().toCsv());
+                stats.setText(map.getStats().toString());
                 stats.setVisible(true);
                 thread.suspend();
 
