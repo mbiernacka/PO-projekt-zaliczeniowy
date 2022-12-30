@@ -16,8 +16,6 @@ import org.example.boundary.BoundaryGlobe;
 import org.example.boundary.BoundaryHellishPortal;
 import org.example.interfaces.IAppObserver;
 import org.example.interfaces.IMapElement;
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
