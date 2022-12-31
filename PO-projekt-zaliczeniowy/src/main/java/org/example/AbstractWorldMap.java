@@ -8,10 +8,11 @@ public abstract class AbstractWorldMap implements IWorldMap{
     protected Map<Vector2d, ArrayList<Animal>> animalMap;
     protected final MapVisualizer mapVisualizer;
     protected Map<Vector2d, Plant> grassMap;
+    protected Map<String , Integer> genotypesCounter;
     protected AbstractWorldMap(){
         this.animalMap = new HashMap<>();
         this.mapVisualizer = new MapVisualizer(this);
-
+        this.genotypesCounter = new HashMap<>();
     }
 
 
@@ -47,6 +48,30 @@ public abstract class AbstractWorldMap implements IWorldMap{
         animal.addObserver(this);
         this.animalMap.putIfAbsent(position, new ArrayList<>());
         this.animalMap.get(position).add(animal);
+        countGenotypes(animal);
+    }
+
+    private void countGenotypes(Animal animal){
+        StringBuilder genotypeString = new StringBuilder("G:");
+        for(Integer i: animal.getGenotype()){
+            genotypeString.append(i);
+        }
+//        if (this.genotypesCounter.containsKey(Arrays.copyOf(animal.getGenotype(), animal.getGenotype().length))) {
+//            Integer currentNumber = this.genotypesCounter.get(animal.getGenotype());
+//            this.genotypesCounter.put(Arrays.copyOf(animal.getGenotype(), animal.getGenotype().length), currentNumber + 1);
+//        }
+//        else {
+//            this.genotypesCounter.put(Arrays.copyOf(animal.getGenotype(), animal.getGenotype().length), 1);
+//        }
+        if (this.genotypesCounter.containsKey(String.valueOf(genotypeString))) {
+            System.out.println("W srodku");
+            //Integer currentNumber = this.genotypesCounter.get(genotypeString);
+            this.genotypesCounter.put(String.valueOf(genotypeString), genotypesCounter.get(String.valueOf(genotypeString)) +1);
+        }
+        else {
+            this.genotypesCounter.put(String.valueOf(genotypeString), 1);
+        }
+
     }
     public void removeDeadAnimalAndMove(){
         ArrayList<Vector2d> keyList = new ArrayList<Vector2d>();
@@ -98,6 +123,16 @@ public abstract class AbstractWorldMap implements IWorldMap{
 
     public abstract Vector2d verifyMove(Vector2d oldVector, Vector2d newVector);
 
+    public Map<String, Integer> getGenotypesCounter(){
+        return Map.copyOf(this.genotypesCounter);
     }
+
+    public void printGenotypeCounter(){
+        for(String key: genotypesCounter.keySet()){
+            System.out.println("Genotyp: " + key + "Licznik: " + genotypesCounter.get(key).toString());
+        }
+    }
+}
+
 
 

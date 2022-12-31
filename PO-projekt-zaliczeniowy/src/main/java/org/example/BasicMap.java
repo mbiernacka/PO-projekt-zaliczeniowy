@@ -7,8 +7,6 @@ import java.util.*;
 
 public abstract class BasicMap extends AbstractWorldMap {
     private int grassAmount;
-
-
     private ArrayList<Vector2d> availableGrassSlots;
 
     private  Vector2d size;

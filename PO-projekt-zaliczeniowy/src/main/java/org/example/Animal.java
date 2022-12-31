@@ -5,29 +5,20 @@ import org.example.interfaces.IMapElement;
 import org.example.interfaces.IPositionChangeObserver;
 import org.example.interfaces.IWorldMap;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class Animal implements IMapElement {
-    //todo raportduciton uniezależnienie od liczby genów, modyfikowalna ilość
-
     protected final int NUMBER_OF_GENES;
     private MapDirection orientation;
     private Vector2d position;
     private final IWorldMap map;
     protected Integer[] genotype; //nowa klasa
     private int energy;
-
     private int age=0;
-
     private int numberOfKids=0;
     private final int MOVE_COST = 2;
-
     private int currentGene = 0;
-
 
 
     private int nextGene(){
@@ -36,25 +27,11 @@ public class Animal implements IMapElement {
         currentGene = currentGene % NUMBER_OF_GENES;//0
         return curr;//6
     }
-    /*
-    zwiększanie energi po jedzeniu
-    sprawdzanbie czyt nie umarło
-    mniejszanie(int)
-    get energy
-     */
+
    private List<IPositionChangeObserver> observerList;
 
-//    public Animal (IWorldMap map){
-//        this(map, new Vector2d(2,2));
-//    }
-
-//    public Animal(){
-//        this.map = new BoundaryHellishPortal(0,new Vector2d(12,12));
-//    }
-
     public Animal(IWorldMap map, Vector2d initialPosition, int baseEnergy, int numOfGenes){
-        this(map,initialPosition,IntStream.of( new Random().ints(numOfGenes, 0, numOfGenes-1).toArray() ).boxed().toArray( Integer[]::new ), baseEnergy, numOfGenes);
-
+        this(map,initialPosition,IntStream.of(new Random().ints(numOfGenes, 0, 8).toArray() ).boxed().toArray( Integer[]::new ), baseEnergy, numOfGenes);
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition,Integer[] genes, int baseEnergy, int numOfGenes){
@@ -65,16 +42,13 @@ public class Animal implements IMapElement {
             this.map = map;
             this.NUMBER_OF_GENES = numOfGenes;
             this.genotype = genes;
-            for (int i=0; i <= genotype.length-1; i++){
-                this.genotype[i] = genotype[i];
-            }
+//            System.out.println("Losowy genotyp: " + Arrays.toString(this.genotype));
+//            for (int i=0; i <= genotype.length-1; i++){
+//                this.genotype[i] = genotype[i];
+//            }
             this.observerList = new ArrayList<>();
             map.place(this);
         }
-    }
-
-        protected Integer[] gererateGenotype(){
-        return new Integer[]{1,2,3,4,5};
     }
 
     public int getNUMBER_OF_GENES() {
@@ -154,21 +128,21 @@ public class Animal implements IMapElement {
         return Objects.equals(this.position, position);
     }
 
-    public void testMove(int gene){
-        MapDirection newOrientation = this.orientation;
-        int i = 0;
-        while (i < gene){
-            newOrientation = newOrientation.next();
-            i++;
-        }
-        this.orientation = newOrientation;
-        //dodałem tylko tą linijkę, jak coś xd
-        this.positionChanged(this.position ,this.position.add(this.orientation.toUnitVector()), this);
-        this.position = this.position.add(this.orientation.toUnitVector());
-
-        System.out.println(this.position.toString());
-        System.out.println(newOrientation.toString());
-    }
+//    public void testMove(int gene){
+//        MapDirection newOrientation = this.orientation;
+//        int i = 0;
+//        while (i < gene){
+//            newOrientation = newOrientation.next();
+//            i++;
+//        }
+//        this.orientation = newOrientation;
+//        //dodałem tylko tą linijkę, jak coś xd
+//        this.positionChanged(this.position ,this.position.add(this.orientation.toUnitVector()), this);
+//        this.position = this.position.add(this.orientation.toUnitVector());
+//
+//        System.out.println(this.position.toString());
+//        System.out.println(newOrientation.toString());
+//    }
 
     public void move(){
         age++;
