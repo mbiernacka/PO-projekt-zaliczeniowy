@@ -34,10 +34,10 @@ public class App extends Application implements IAppObserver {
     private final int SQUARESIZE = 50;
     private Engine engine;
     private final static int moveDelay = 750;
-
-   private Label statsAnimal;
-private Button removeDead;
-
+    private Label statsAnimal;
+    private Button removeDead;
+    private Animal trackedAnimal;
+    private    Boolean isTracked = false;
     public void start(Stage primaryStage) throws FileNotFoundException {
 
         Button start = new Button("Start");
@@ -146,8 +146,7 @@ removeDead.setOnAction(click->{
             gridPane.add(labelXY, 0, 0);
             GridPane.setHalignment(labelXY, HPos.CENTER);
         }
-Animal trackedAnimal;
-    Boolean isTracked = false;
+
 
         public void drawObjects(Vector2d lowerBound, Vector2d upperBound, GridPane gridPane) throws FileNotFoundException {
             int w = 1;
@@ -281,6 +280,4 @@ if (isTracked){
             }
         });
     }
-
-
 }
