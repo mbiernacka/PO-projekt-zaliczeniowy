@@ -159,7 +159,7 @@ public abstract class BasicMap extends AbstractWorldMap {
     @Override
     public Object objectAt(Vector2d position){
         Object obj = this.animalMap.getOrDefault(position, null);;
-        if (obj != null) {
+        if (obj != null && !this.animalMap.get(position).isEmpty()) {
             return obj;
         }
         return grassMap.getOrDefault(position, null);
