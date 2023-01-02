@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.boundary.MapBoundary;
+//import org.example.boundary.MapBoundary;
 
 import java.util.*;
 
@@ -114,46 +114,6 @@ public abstract class BasicMap extends AbstractWorldMap {
 
 
 
-//        while(true){
-//            for (int i = 0; i < this.getUpperRight().x; i++) {
-//                if(animalMap.containsKey(new Vector2d(i,y))){
-//                    maxEmpty--;
-//                }
-//                if(maxEmpty<=0){
-//                    yCheck = false;
-//                }
-//            }
-//
-//
-//            int x = (int) ((Math.random() * ((this.getUpperRight().x- 1)))+1);
-//
-//            Vector2d newGrassPosition = new Vector2d(x,y);
-//
-//
-//            if(!this.grassMap.containsKey(newGrassPosition)){
-//                grassMap.put(newGrassPosition, new Plant(newGrassPosition));
-//                //mapBoundary.place(newGrassPosition);
-//                break;
-//            }
-//            if(yCheck){
-//            y = (int) ((Math.random() * (this.getUpperRight().y -  1)) + 1);
-//        }
-
-
-        //spr pozycji
-//        for (int y = centerY-2 ; y <= centerY+radiusY ; y++) {
-//            for (int x = centerX - radiusX; x <= centerX + radiusX; x++) {
-//
-//                if(grassAmount > 0){
-//                    grassAmount--;
-//                    Vector2d newGrassPosition = new Vector2d(x,y);
-//                    grassMap.put(newGrassPosition, new Plant(newGrassPosition));
-//                    mapBoundary.place(newGrassPosition);
-//                }else {mapBoundary.place(new Vector2d(x,y));}
-//            }
-//        }
-   // }
-
 
     @Override
     public Object objectAt(Vector2d position){
@@ -170,10 +130,6 @@ public abstract class BasicMap extends AbstractWorldMap {
         return super.isOccupied(position);
     }
 
-    @Override
-    public MapBoundary getMapBoundary() {
-        return null;
-    }
 
     @Override
     public Vector2d calculateLowerBound(){
@@ -188,7 +144,6 @@ public abstract class BasicMap extends AbstractWorldMap {
     @Override
     public void place(Animal animal){
         super.place(animal);
-       // mapBoundary.place(animal.getPosition());
     }
 
     @Override

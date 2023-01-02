@@ -9,21 +9,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-usunięcie martwych zwierząt z mapy,done
-skręt i przemieszczenie każdego zwierzęcia,done
-n*logn
-< n*n
-konsumpcja roślin na których pola weszły zwierzęta,
-rozmnażanie się najedzonych zwierząt znajdujących się na tym samym polu,
-wzrastanie nowych roślin na wybranych polach mapy.
- */
 public class Engine implements Runnable {
     private final List<IAppObserver> observerList;
     private int moveDelay;
-    BasicMap map;
+    private BasicMap map;
     private final Parameters parameters;
-File file;
+    private File file;
 
    public Engine(BasicMap map, Parameters parameters, File file){
         this.observerList = new ArrayList<>();
@@ -36,13 +27,7 @@ File file;
             Vector2d vector2d = new Vector2d(((int)(Math.random()* 1000)% map.getUpperRight().x),((int)(Math.random()* 1000))% map.getUpperRight().y);
             new Animal(map, vector2d, parameters.getParamList().get(7), parameters.getParamList().get(10));
         }
-       // new Animal(map, new Vector2d(0,0), new Integer[]{0, 0, 0, 0, 0, 0, 0}, parameters.getParamList().get(7), parameters.getParamList().get(10));
-//        new Animal(map, new Vector2d(5,5), new Integer[]{0, 1, 2, 3, 4, 5, 6}, (Integer) parameters.getParamList().get(7),(Integer)parameters.getParamList().get(10));
-//        new Animal(map, new Vector2d(8,2), new Integer[]{4, 2, 3, 7, 5, 6, 6}, (Integer) parameters.getParamList().get(7),(Integer)parameters.getParamList().get(10));
-//        new Animal(map, new Vector2d(8,2), new Integer[]{4, 2, 7, 8, 9, 4, 6}, (Integer) parameters.getParamList().get(7),(Integer)parameters.getParamList().get(10));
-        int i = 20;
         while(true) {
-            i--;
             map.removeDeadAnimalAndMove();
             this.notifyObservers();
             map.sortAnimalMap();
@@ -55,8 +40,6 @@ File file;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            //System.out.println(map.getStats().toCsv());
-
 
             try {
                 Thread.sleep(moveDelay);

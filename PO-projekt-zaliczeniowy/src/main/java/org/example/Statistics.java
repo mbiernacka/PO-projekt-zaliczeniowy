@@ -37,13 +37,6 @@ public class Statistics {
                 }
             }
         }
-        //
-//        int enegrySum=0, ageSum = 0;
-//        Iterator<Map.Entry<Vector2d, ArrayList<Animal>>> mapIterator = animalMap.entrySet().iterator();
-//        while (mapIterator.hasNext()){
-//            Map.Entry<Vector2d, ArrayList<Animal>> entry = mapIterator.next();
-//
-//        }
         int enegrySum= animalMap.values().stream().mapToInt(l -> l.stream().mapToInt(a->a.getEnergy()).sum()).sum();
         int ageSum= animalMap.values().stream().mapToInt(l -> l.stream().mapToInt(a->a.getAge()).sum()).sum();
         if(animalsCounter>0){
@@ -60,15 +53,6 @@ public class Statistics {
         mostCommonGenotypeCounter = entry.getValue();
     }
 
-    public void whenWriteStringUsingBufferedWritter_thenCorrect()
-        //
-            throws IOException {
-        String str = "Hello123";
-        BufferedWriter writer = new BufferedWriter(new FileWriter("test"));
-        writer.write(str);
-
-        writer.close();
-    }
     public String toCsv(){
             return String.format("%d;%d;%d;%.2f;%.2f;%s",animalsCounter,
                     plantsCounter, emptyFieldsCounter, avEnergy, avLifespan, mostCommonGenotype);

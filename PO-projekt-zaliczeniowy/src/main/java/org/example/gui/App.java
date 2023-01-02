@@ -37,7 +37,7 @@ public class App extends Application implements IAppObserver {
     private Label statsAnimal;
     private Button removeDead;
     private Animal trackedAnimal;
-    private    Boolean isTracked = false;
+    private Boolean isTracked = false;
     public void start(Stage primaryStage) throws FileNotFoundException {
 
         Button start = new Button("Start");
@@ -56,7 +56,7 @@ public class App extends Application implements IAppObserver {
         HBox body = new HBox(main);
         //Thread thread;
         Thread thread = new Thread(engine);
-removeDead.setOnAction(click->{
+    removeDead.setOnAction(click->{
     statsAnimal.setVisible(false);
     removeDead.setVisible(false);
     isTracked = false;
@@ -171,7 +171,6 @@ removeDead.setOnAction(click->{
                                                isTracked = true;
                                                trackedAnimal = (Animal) o;
                                                element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(100, 37, 245), CornerRadii.EMPTY, Insets.EMPTY)));
-
                                                removeDead.setVisible(true);
                                                this.statsAnimal.setText(trackedAnimal.trackedAnimalStats());
                                                this.statsAnimal.setVisible(true);
@@ -180,8 +179,7 @@ removeDead.setOnAction(click->{
                                                isTracked=false;
                                                trackedAnimal = null;
                                                element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(205, 37, 245), CornerRadii.EMPTY, Insets.EMPTY)));
-                                                statsAnimal.setVisible(false);
-
+                                               statsAnimal.setVisible(false);
 
                                            }
                                     });
@@ -239,7 +237,6 @@ removeDead.setOnAction(click->{
 
        }
 
-        //1.csv 2.csv
         int i = 0;
         File file;
        while (true){
@@ -261,7 +258,6 @@ removeDead.setOnAction(click->{
     this.engine = new Engine(map, parameters, file);
     engine.setDelay(moveDelay);
     engine.addObserver(this);
-
 
     }
 

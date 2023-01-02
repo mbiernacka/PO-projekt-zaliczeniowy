@@ -12,7 +12,7 @@ public class Animal implements IMapElement {
     private MapDirection orientation;
     private Vector2d position;
     private final IWorldMap map;
-    protected Integer[] genotype; //nowa klasa
+    protected Integer[] genotype;
     private int energy;
     private int age=0;
     private int numberOfKids=0;
@@ -32,23 +32,21 @@ private int plantsEaten =0;
     }
 
     private final List<IPositionChangeObserver> observerList;
-
+//dla pierwszych
     public Animal(IWorldMap map, Vector2d initialPosition, int baseEnergy, int numOfGenes){
         this(map,initialPosition,IntStream.of(new Random().ints(numOfGenes, 0, 8).toArray() ).boxed().toArray( Integer[]::new ), baseEnergy, numOfGenes);
+        this.currentGene =0;
     }
-
+//dla dzieci
     public Animal(IWorldMap map, Vector2d initialPosition,Integer[] genes, int baseEnergy, int numOfGenes){
         {
+            this.currentGene = new Random().nextInt((numOfGenes));
             this.orientation = MapDirection.NORTH;
             this.position = initialPosition;
             this.energy = baseEnergy;
             this.map = map;
             this.NUMBER_OF_GENES = numOfGenes;
             this.genotype = genes;
-//            System.out.println("Losowy genotyp: " + Arrays.toString(this.genotype));
-//            for (int i=0; i <= genotype.length-1; i++){
-//                this.genotype[i] = genotype[i];
-//            }
             this.observerList = new ArrayList<>();
             map.place(this);
         }
@@ -58,22 +56,10 @@ private int plantsEaten =0;
         return NUMBER_OF_GENES;
     }
 
-    public MapDirection getOrientation() {
-        return orientation;
-    }
 
-    @Override
-    public String getTexture() {
-        return "src/main/resources/Cat_north.png";
-    }
 
     public Vector2d getPosition() {
         return position;
-    }
-
-    @Override
-    public String getLabel() {
-        return this.getEnergy()+"";
     }
 
     public int getEnergy(){
@@ -156,22 +142,6 @@ private int plantsEaten =0;
         return Objects.equals(this.position, position);
     }
 
-//    public void testMove(int gene){
-//        MapDirection newOrientation = this.orientation;
-//        int i = 0;
-//        while (i < gene){
-//            newOrientation = newOrientation.next();
-//            i++;
-//        }
-//        this.orientation = newOrientation;
-//        //dodałem tylko tą linijkę, jak coś xd
-//        this.positionChanged(this.position ,this.position.add(this.orientation.toUnitVector()), this);
-//        this.position = this.position.add(this.orientation.toUnitVector());
-//
-//        System.out.println(this.position.toString());
-//        System.out.println(newOrientation.toString());
-//    }
-
     public void move(){
         age++;
         this.decreaseEnergy(this.MOVE_COST);
@@ -183,7 +153,6 @@ private int plantsEaten =0;
             i++;
         }
         this.orientation = newOrientation;
-        //dodałem tylko tą linijkę, jak coś xd
         Vector2d animalNewPosision = map.verifyMove(this.position, this.position.add(this.orientation.toUnitVector()));
        this.positionChanged(this.position ,animalNewPosision, this);
 
@@ -195,16 +164,8 @@ private int plantsEaten =0;
 
 
     public void addObserver(IPositionChangeObserver observer){
-       // this.observerList = new ArrayList<>();//DO USUNICIA
-//        if (observerList == null){
-//            this.observerList = new ArrayList<>();
-//        }
         this.observerList.add(observer);
     }
-    public void removeObserver(IPositionChangeObserver observer){
-        this.observerList.remove(observer);
-    }
-
     private void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal a){
         for (IPositionChangeObserver observer: this.observerList){
             observer.positionChanged(oldPosition, newPosition, this);

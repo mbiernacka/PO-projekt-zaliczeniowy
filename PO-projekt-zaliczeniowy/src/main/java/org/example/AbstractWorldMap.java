@@ -33,10 +33,8 @@ public abstract class AbstractWorldMap implements IWorldMap{
         Animal animal = animalList.get(animalList.indexOf(a));
 
         this.animalMap.get(oldPosition).remove(animal);
-        //System.out.println("tu chcemy nulla" + animalMap.get(oldPosition));
         this.animalMap.putIfAbsent(newPosition, new ArrayList<>());
         this.animalMap.get(newPosition).add(animal);
-        //System.out.println("tu chcemy zwierze" + animalMap.get(newPosition));
 
     }
 
@@ -61,7 +59,6 @@ public abstract class AbstractWorldMap implements IWorldMap{
         }
         if (this.genotypesCounter.containsKey(String.valueOf(genotypeString))) {
             System.out.println("W srodku");
-            //Integer currentNumber = this.genotypesCounter.get(genotypeString);
             this.genotypesCounter.put(String.valueOf(genotypeString), genotypesCounter.get(String.valueOf(genotypeString)) +1);
         }
         else {
@@ -82,9 +79,7 @@ public abstract class AbstractWorldMap implements IWorldMap{
                 if(animal.isDead()){
                     keyList.add(key);
                     animalList.add(animal);
-//        this.animalMap.get(key).remove(animal);
                 }else {
-                   //aliveKeyList.add(key);
                    aliveAnimalList.add(animal);
                 }
             }
@@ -97,11 +92,6 @@ public abstract class AbstractWorldMap implements IWorldMap{
             aliveAnimalList.get(i).move();
         }
 
-//todo:to można przez iterator- jakoś
-//        Iterator mapIterator = animalMap.entrySet().iterator();
-//        while (mapIterator.hasNext()){
-//           System.out.println(mapIterator);
-//        }
     }
 
     public void sortAnimalMap(){
@@ -117,10 +107,6 @@ public abstract class AbstractWorldMap implements IWorldMap{
 
 
     public abstract Vector2d verifyMove(Vector2d oldVector, Vector2d newVector);
-
-    public Map<String, Integer> getGenotypesCounter(){
-        return Map.copyOf(this.genotypesCounter);
-    }
 
     public Map<String , Integer> printGenotypeCounter(){
         for(String key: genotypesCounter.keySet()){

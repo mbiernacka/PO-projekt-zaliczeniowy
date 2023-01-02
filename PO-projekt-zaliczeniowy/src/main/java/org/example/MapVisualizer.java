@@ -116,7 +116,6 @@ public class MapVisualizer {
 
             result = EMPTY_CELL;
         }
-        //System.out.println("PO " + this.map.objectAt(currentPosition));
         return result;
     }
 }

@@ -27,7 +27,7 @@ public class Reproduction {
     }
 
     public int[] calculateGenesDivision(){
-        int genesNumber = this.parent1.getNUMBER_OF_GENES(); //tutaj pewnie bedzie stala do ilosci genow?
+        int genesNumber = this.parent1.getNUMBER_OF_GENES();
         int[] result = new int[2];
         int parent1Energy = this.parent1.getEnergy();
         int parent2Energy = this.parent2.getEnergy();
