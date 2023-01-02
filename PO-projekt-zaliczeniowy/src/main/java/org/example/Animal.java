@@ -19,7 +19,7 @@ public class Animal implements IMapElement {
     private int numberOfKids=0;
     private final int MOVE_COST = 2;
     private int currentGene = 0;
-
+private int plantsEaten =0;
 
     private int nextGene(){
         int curr = currentGene; //6
@@ -28,7 +28,11 @@ public class Animal implements IMapElement {
         return curr;//6
     }
 
-   private List<IPositionChangeObserver> observerList;
+    public int getPlantsEaten() {
+        return plantsEaten;
+    }
+
+    private List<IPositionChangeObserver> observerList;
 
     public Animal(IWorldMap map, Vector2d initialPosition, int baseEnergy, int numOfGenes){
         this(map,initialPosition,IntStream.of(new Random().ints(numOfGenes, 0, 8).toArray() ).boxed().toArray( Integer[]::new ), baseEnergy, numOfGenes);
@@ -87,6 +91,7 @@ public class Animal implements IMapElement {
     public void eat(int value){
         if (!isDead()){
             this.energy += value;
+            this.plantsEaten++;
         }
     }
 
@@ -125,6 +130,27 @@ public class Animal implements IMapElement {
             case NORTHWEST -> "Animal\nNW, "+ this.getEnergy() + ", " + this.getAge();
             case SOUTHWEST -> "Animal\nSW, "+ this.getEnergy() + ", " + this.getAge();
         };
+    }
+
+   //genotpyetostring
+    private String genotypeToString() {
+        StringBuilder genotypeString = new StringBuilder("G:");
+        for (Integer i : this.getGenotype()) {
+            genotypeString.append(i);
+        }
+    return genotypeString.toString();
+    }
+    public String trackedAnimalStats() {
+        return String.format("""
+                        
+                        Tracked Animal:
+                        genotype: %s
+                        activated gene: %d
+                        energy: %d
+                        plants eaten %d
+                        number of children: %d
+                        age: %d """,this.genotypeToString(),
+                this.genotype[this.currentGene], this.getEnergy(), this.getPlantsEaten(), this.getNumberOfKids(), getAge());
     }
 
     public boolean isAt(Vector2d position){
@@ -184,5 +210,20 @@ public class Animal implements IMapElement {
         for (IPositionChangeObserver observer: this.observerList){
             observer.positionChanged(oldPosition, newPosition, this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return NUMBER_OF_GENES == animal.NUMBER_OF_GENES && energy == animal.energy && age == animal.age && numberOfKids == animal.numberOfKids && MOVE_COST == animal.MOVE_COST && currentGene == animal.currentGene && orientation == animal.orientation && Objects.equals(position, animal.position) && Objects.equals(map, animal.map) && Arrays.equals(genotype, animal.genotype) && Objects.equals(observerList, animal.observerList);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(NUMBER_OF_GENES, orientation, position, map, energy, age, numberOfKids, MOVE_COST, currentGene, observerList);
+        result = 31 * result + Arrays.hashCode(genotype);
+        return result;
     }
 }

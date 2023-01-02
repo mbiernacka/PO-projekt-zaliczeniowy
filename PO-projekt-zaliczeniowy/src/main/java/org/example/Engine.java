@@ -56,7 +56,7 @@ File file;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println(map.getStats().toCsv());
+            //System.out.println(map.getStats().toCsv());
 
 
             try {

@@ -33,7 +33,7 @@ public class App extends Application implements IAppObserver {
     private final static int moveDelay = 750;
 
     //GUIElementBox element = new GUIElementBox(new Animal());
-
+   private Label statsAnimal;
 
 
     public void start(Stage primaryStage) throws FileNotFoundException {
@@ -43,21 +43,29 @@ public class App extends Application implements IAppObserver {
         Button pause = new Button("Pause");
         Button resume = new Button("Resume");
         Label stats = new Label("");
+        statsAnimal = new Label("");
+        statsAnimal.setVisible(false);
         stats.setVisible(false);
-        VBox top = new VBox(moves, start,pause,resume,stats);
+        pause.setVisible(false);
+        resume.setVisible(false);
+        VBox top = new VBox(moves, start,pause,resume,stats,statsAnimal);
         VBox main = new VBox(top, gridPane);
         HBox body = new HBox(main);
         //Thread thread;
         Thread thread = new Thread(engine);
 
         start.setOnAction(click -> {
+            pause.setVisible(true);
 
+            start.setVisible(false);
             thread.start();
         });
 
         pause.setOnAction(click -> {
             try {
+                pause.setVisible(false);
                 stats.setText(map.getStats().toString());
+               resume.setVisible(true);
                 stats.setVisible(true);
                 thread.suspend();
 
@@ -67,9 +75,13 @@ public class App extends Application implements IAppObserver {
         });
 
         resume.setOnAction(click -> {
+            pause.setVisible(true);
+            resume.setVisible(false);
             thread.resume();
         });
-
+        primaryStage.setOnCloseRequest(event -> {
+            thread.stop();
+        });
         newGridPane();
         Scene scene = new Scene(body, 800, 800);
         primaryStage.setScene(scene);
@@ -125,7 +137,8 @@ public class App extends Application implements IAppObserver {
             gridPane.add(labelXY, 0, 0);
             GridPane.setHalignment(labelXY, HPos.CENTER);
         }
-
+Animal trackedAnimal;
+    Boolean isTracked = false;
         public void drawObjects(Vector2d lowerBound, Vector2d upperBound, GridPane gridPane) throws FileNotFoundException {
             int w = 1;
             for (int i = upperBound.y; i >= lowerBound.y; i--) {
@@ -137,11 +150,24 @@ public class App extends Application implements IAppObserver {
                             for (IMapElement o:
                                  list) {
                                 if (o != null) {
-                                    Label element = new Label(o.toString());
+                                    Button element = new Button(o.toString());
+
+                                    element.setOnAction(click -> {
+                                            isTracked = true;
+                                            trackedAnimal = (Animal) o;
+                                        element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(100,37,245), CornerRadii.EMPTY, Insets.EMPTY)));
+                                });
+                                    if(isTracked && trackedAnimal.equals((Animal)o)){
+                                        element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(100,37,245), CornerRadii.EMPTY, Insets.EMPTY)));
+
+                                    }else {
+                                        element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(205, 37, 245), CornerRadii.EMPTY, Insets.EMPTY)));
+
+                                    }
                                     element.setMinHeight(50);
                                     element.setMinWidth(50);
                                     element.setFont(new Font(10));
-                                    element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(205,37,245), CornerRadii.EMPTY, Insets.EMPTY)));
+
                                     element.setAlignment(Pos.CENTER);
                                     GridPane.setHalignment(element, HPos.CENTER);
                                     gridPane.add(element,p,w);
@@ -212,7 +238,11 @@ public class App extends Application implements IAppObserver {
             gridPane.getChildren().clear();
             try {
                 newGridPane();
+if (isTracked){
 
+    this.statsAnimal.setText(trackedAnimal.trackedAnimalStats());
+    this.statsAnimal.setVisible(true);
+}
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
