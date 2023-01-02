@@ -14,14 +14,33 @@ public class Parameters {
         sc.useDelimiter(",");   //sets the delimiter pattern
         while (sc.hasNext())  //returns a boolean value
         {
-            paramList.add( Integer.valueOf(sc.next()));  //find and returns the next complete token from this scanner
+            Integer current = Integer.valueOf(sc.next());
+            if (current < 0){
+                throw new IllegalArgumentException();
+
+            }
+            paramList.add(current);  //find and returns the next complete token from this scanner
         }
         sc.close();
-        if (paramList.size() != 14){
-            //todo dodać ograniczenie
-          //  throw new InputMismatchException();
+        if (paramList.size() != 11){
+
+            throw new InputMismatchException();
+
         }}catch(FileNotFoundException e){
         e.printStackTrace();
+           System.exit(1);
+    }
+       catch (IllegalArgumentException e){
+           e.printStackTrace();
+           System.exit(1);
+       }
+    try {
+        if (paramList.get(0) == 0 || paramList.get(1) ==0){
+            throw new InputMismatchException();
+        }
+    }catch (InputMismatchException e){
+        e.printStackTrace();
+        System.exit(1);
     }
 
 

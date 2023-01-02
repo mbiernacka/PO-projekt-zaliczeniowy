@@ -201,9 +201,10 @@ public class App extends Application implements IAppObserver {
         }
        }
 
-        this.engine = new Engine(map, parameters, file);
-        engine.setDelay(moveDelay);
-        engine.addObserver(this);
+    this.engine = new Engine(map, parameters, file);
+    engine.setDelay(moveDelay);
+    engine.addObserver(this);
+
 
     }
     public void positionAppChanged(){
@@ -211,6 +212,7 @@ public class App extends Application implements IAppObserver {
             gridPane.getChildren().clear();
             try {
                 newGridPane();
+
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
