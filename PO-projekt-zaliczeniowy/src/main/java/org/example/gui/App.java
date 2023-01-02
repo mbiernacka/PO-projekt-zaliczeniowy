@@ -171,7 +171,7 @@ public class App extends Application implements IAppObserver {
                 w++;
             }
         }
-
+//test
     public void init(String path) throws FileNotFoundException {
         //wczytwana
         final org.example.Parameters parameters = new org.example.Parameters(path);
