@@ -2,7 +2,6 @@ package org.example.gui;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -12,18 +11,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class Dashboard extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Load parameters");
 
-
-
-
         TextField textField = new TextField();
-
+        textField.setPromptText("Enter path to your own configuration");
         Button exConfig1  = new Button("Start Pre-build Simulation 1");
         Button exConfig2  = new Button("Start Pre-build Simulation 2");
 

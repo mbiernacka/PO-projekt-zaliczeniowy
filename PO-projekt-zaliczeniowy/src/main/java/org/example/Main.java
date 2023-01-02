@@ -1,7 +1,6 @@
 package org.example;
 
 import javafx.application.Application;
-import org.example.gui.App;
 import org.example.gui.Dashboard;
 
 import java.io.IOException;

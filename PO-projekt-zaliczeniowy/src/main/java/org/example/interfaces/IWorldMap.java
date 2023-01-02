@@ -56,7 +56,7 @@ public interface IWorldMap extends IPositionChangeObserver {
         return objectAt(position) != null;}
 
 
-    public MapBoundary getMapBoundary();
-    public Vector2d verifyMove(Vector2d oldVector, Vector2d newVector);
+    MapBoundary getMapBoundary();
+    Vector2d verifyMove(Vector2d oldVector, Vector2d newVector);
 
 }

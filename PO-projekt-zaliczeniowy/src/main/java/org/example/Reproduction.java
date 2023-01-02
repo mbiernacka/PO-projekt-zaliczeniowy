@@ -2,7 +2,10 @@ package org.example;
 
 import org.example.interfaces.IWorldMap;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Reproduction {
     public Animal parent1;

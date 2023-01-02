@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.boundary.BoundaryHellishPortal;
 import org.example.interfaces.IMapElement;
 import org.example.interfaces.IPositionChangeObserver;
 import org.example.interfaces.IWorldMap;
@@ -32,7 +31,7 @@ private int plantsEaten =0;
         return plantsEaten;
     }
 
-    private List<IPositionChangeObserver> observerList;
+    private final List<IPositionChangeObserver> observerList;
 
     public Animal(IWorldMap map, Vector2d initialPosition, int baseEnergy, int numOfGenes){
         this(map,initialPosition,IntStream.of(new Random().ints(numOfGenes, 0, 8).toArray() ).boxed().toArray( Integer[]::new ), baseEnergy, numOfGenes);
@@ -191,7 +190,7 @@ private int plantsEaten =0;
         this.position = animalNewPosision;
 
         System.out.println(this.position.toString());
-        System.out.println(newOrientation.toString());
+        System.out.println(newOrientation);
     }
 
 

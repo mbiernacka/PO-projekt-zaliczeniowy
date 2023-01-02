@@ -3,17 +3,21 @@ package org.example;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.toMap;
 
 public class Statistics {
-    private int animalsCounter=0, plantsCounter, emptyFieldsCounter=0;
+    private int animalsCounter=0;
+    private final int plantsCounter;
+    private int emptyFieldsCounter=0;
     //todo licznik genotypu
     private float avEnergy=0, avLifespan=0;
-    private String mostCommonGenotype;
-    private Integer mostCommonGenotypeCounter;
+    private final String mostCommonGenotype;
+    private final Integer mostCommonGenotypeCounter;
     BasicMap map;
 
     public Statistics(BasicMap map){

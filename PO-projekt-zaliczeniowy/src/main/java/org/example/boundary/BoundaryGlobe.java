@@ -1,7 +1,7 @@
 package org.example.boundary;
+
 import org.example.Animal;
 import org.example.BasicMap;
-
 import org.example.Vector2d;
 
 public class BoundaryGlobe extends BasicMap

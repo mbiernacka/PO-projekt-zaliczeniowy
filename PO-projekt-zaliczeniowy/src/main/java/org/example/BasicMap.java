@@ -2,14 +2,13 @@ package org.example;
 
 import org.example.boundary.MapBoundary;
 
-import java.lang.Math;
 import java.util.*;
 
 public abstract class BasicMap extends AbstractWorldMap {
-    private int grassAmount;
-    private ArrayList<Vector2d> availableGrassSlots;
+    private final int grassAmount;
+    private final ArrayList<Vector2d> availableGrassSlots;
 
-    private  Vector2d size;
+    private final Vector2d size;
     private  final int NEW_PLANTS;
     private final int PLANT_NUTRITIOUSNESS;
     private final int energyDecrease;
@@ -158,7 +157,7 @@ public abstract class BasicMap extends AbstractWorldMap {
 
     @Override
     public Object objectAt(Vector2d position){
-        Object obj = this.animalMap.getOrDefault(position, null);;
+        Object obj = this.animalMap.getOrDefault(position, null);
         if (obj != null && !this.animalMap.get(position).isEmpty()) {
             return obj;
         }
@@ -175,8 +174,6 @@ public abstract class BasicMap extends AbstractWorldMap {
     public MapBoundary getMapBoundary() {
         return null;
     }
-
-    ;
 
     @Override
     public Vector2d calculateLowerBound(){

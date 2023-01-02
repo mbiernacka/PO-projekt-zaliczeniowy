@@ -1,14 +1,13 @@
 package org.example;
 
-import org.example.boundary.BoundaryGlobe;
-import org.example.boundary.BoundaryHellishPortal;
 import org.example.interfaces.IAppObserver;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /*
 usunięcie martwych zwierząt z mapy,done
@@ -23,7 +22,7 @@ public class Engine implements Runnable {
     private final List<IAppObserver> observerList;
     private int moveDelay;
     BasicMap map;
-    private Parameters parameters;
+    private final Parameters parameters;
 File file;
 
    public Engine(BasicMap map, Parameters parameters, File file){

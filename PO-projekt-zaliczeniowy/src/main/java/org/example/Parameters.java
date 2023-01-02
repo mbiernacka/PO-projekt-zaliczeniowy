@@ -2,24 +2,26 @@ package org.example;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Parameters {
-    private ArrayList<Integer> paramList = new ArrayList<Integer>();
+    private final ArrayList<Integer> paramList = new ArrayList<Integer>();
     public Parameters(String path) throws FileNotFoundException {
 
        try{
-        //parsing a CSV file into Scanner class constructor
+
         Scanner sc = new Scanner(new File(path));
-        sc.useDelimiter(",");   //sets the delimiter pattern
-        while (sc.hasNext())  //returns a boolean value
+        sc.useDelimiter(",");
+        while (sc.hasNext())
         {
             Integer current = Integer.valueOf(sc.next());
             if (current < 0){
                 throw new IllegalArgumentException();
 
             }
-            paramList.add(current);  //find and returns the next complete token from this scanner
+            paramList.add(current);
         }
         sc.close();
         if (paramList.size() != 11){
@@ -28,7 +30,7 @@ public class Parameters {
 
         }}catch(FileNotFoundException e){
         e.printStackTrace();
-           System.exit(1);
+           //System.exit(1);
     }
        catch (IllegalArgumentException e){
            e.printStackTrace();

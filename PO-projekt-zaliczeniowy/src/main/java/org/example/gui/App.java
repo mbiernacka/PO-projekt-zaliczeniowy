@@ -8,19 +8,22 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import org.example.*;
+import org.example.Animal;
+import org.example.BasicMap;
+import org.example.Engine;
+import org.example.Vector2d;
 import org.example.boundary.BoundaryGlobe;
 import org.example.boundary.BoundaryHellishPortal;
 import org.example.interfaces.IAppObserver;
 import org.example.interfaces.IMapElement;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class App extends Application implements IAppObserver {
@@ -32,9 +35,8 @@ public class App extends Application implements IAppObserver {
     private Engine engine;
     private final static int moveDelay = 750;
 
-    //GUIElementBox element = new GUIElementBox(new Animal());
    private Label statsAnimal;
-Button removeDead;
+private Button removeDead;
 
     public void start(Stage primaryStage) throws FileNotFoundException {
 
@@ -184,7 +186,7 @@ Animal trackedAnimal;
 
                                            }
                                     });
-                                    if(isTracked && trackedAnimal.equals((Animal)o)){
+                                    if(isTracked && trackedAnimal.equals(o)){
 
                                         element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(100,37,245), CornerRadii.EMPTY, Insets.EMPTY)));
 

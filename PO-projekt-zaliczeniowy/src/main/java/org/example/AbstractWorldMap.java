@@ -1,8 +1,11 @@
 package org.example;
 
-import java.util.*;
-
 import org.example.interfaces.IWorldMap;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class AbstractWorldMap implements IWorldMap{
     protected Map<Vector2d, ArrayList<Animal>> animalMap;
