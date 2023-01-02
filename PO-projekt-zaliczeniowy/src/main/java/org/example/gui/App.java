@@ -34,26 +34,33 @@ public class App extends Application implements IAppObserver {
 
     //GUIElementBox element = new GUIElementBox(new Animal());
    private Label statsAnimal;
-
+Button removeDead;
 
     public void start(Stage primaryStage) throws FileNotFoundException {
 
-        TextField moves = new TextField();
         Button start = new Button("Start");
         Button pause = new Button("Pause");
         Button resume = new Button("Resume");
+        removeDead = new Button("stop tracking");
+        removeDead.setVisible(false);
         Label stats = new Label("");
         statsAnimal = new Label("");
         statsAnimal.setVisible(false);
         stats.setVisible(false);
         pause.setVisible(false);
         resume.setVisible(false);
-        VBox top = new VBox(moves, start,pause,resume,stats,statsAnimal);
+        VBox top = new VBox(start,pause,resume,stats,statsAnimal,removeDead);
         VBox main = new VBox(top, gridPane);
         HBox body = new HBox(main);
         //Thread thread;
         Thread thread = new Thread(engine);
+removeDead.setOnAction(click->{
+    statsAnimal.setVisible(false);
+    removeDead.setVisible(false);
+    isTracked = false;
+    trackedAnimal =null;
 
+});
         start.setOnAction(click -> {
             pause.setVisible(true);
 
@@ -65,7 +72,7 @@ public class App extends Application implements IAppObserver {
             try {
                 pause.setVisible(false);
                 stats.setText(map.getStats().toString());
-               resume.setVisible(true);
+                resume.setVisible(true);
                 stats.setVisible(true);
                 thread.suspend();
 
@@ -139,25 +146,46 @@ public class App extends Application implements IAppObserver {
         }
 Animal trackedAnimal;
     Boolean isTracked = false;
+
         public void drawObjects(Vector2d lowerBound, Vector2d upperBound, GridPane gridPane) throws FileNotFoundException {
             int w = 1;
             for (int i = upperBound.y; i >= lowerBound.y; i--) {
+
                 int p = 1;
                 for (int j = lowerBound.x; j <= upperBound.x; j++) {
+
                     if (this.map.isOccupied(new Vector2d(j, i))) {
                         if (this.map.objectAt(new Vector2d(j, i)) instanceof List){
                             ArrayList<IMapElement> list = (ArrayList<IMapElement>) this.map.objectAt(new Vector2d(j, i));
                             for (IMapElement o:
                                  list) {
                                 if (o != null) {
+
                                     Button element = new Button(o.toString());
 
-                                    element.setOnAction(click -> {
-                                            isTracked = true;
-                                            trackedAnimal = (Animal) o;
-                                        element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(100,37,245), CornerRadii.EMPTY, Insets.EMPTY)));
-                                });
+                                        element.setOnAction(click -> {
+
+                                           if (!isTracked) {
+
+                                               isTracked = true;
+                                               trackedAnimal = (Animal) o;
+                                               element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(100, 37, 245), CornerRadii.EMPTY, Insets.EMPTY)));
+
+                                               removeDead.setVisible(true);
+                                               this.statsAnimal.setText(trackedAnimal.trackedAnimalStats());
+                                               this.statsAnimal.setVisible(true);
+                                           }else {
+
+                                               isTracked=false;
+                                               trackedAnimal = null;
+                                               element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(205, 37, 245), CornerRadii.EMPTY, Insets.EMPTY)));
+                                                statsAnimal.setVisible(false);
+
+
+                                           }
+                                    });
                                     if(isTracked && trackedAnimal.equals((Animal)o)){
+
                                         element.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.rgb(100,37,245), CornerRadii.EMPTY, Insets.EMPTY)));
 
                                     }else {
@@ -194,6 +222,8 @@ Animal trackedAnimal;
                 }
                 w++;
             }
+
+
             gridPane.getRowConstraints().add(new RowConstraints(CONSTRAINTS));
             gridPane.getColumnConstraints().add(new ColumnConstraints(CONSTRAINTS));
         }
@@ -233,13 +263,14 @@ Animal trackedAnimal;
 
 
     }
+
     public void positionAppChanged(){
         Platform.runLater(() -> {
             gridPane.getChildren().clear();
             try {
                 newGridPane();
 if (isTracked){
-
+    removeDead.setVisible(true);
     this.statsAnimal.setText(trackedAnimal.trackedAnimalStats());
     this.statsAnimal.setVisible(true);
 }

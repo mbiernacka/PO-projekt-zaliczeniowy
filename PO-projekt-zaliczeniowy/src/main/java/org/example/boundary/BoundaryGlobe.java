@@ -18,15 +18,15 @@ public class BoundaryGlobe extends BasicMap
         int maxY = super.getUpperRight().y;
 
         if (newVector.x <0) {
-            outputV = new Vector2d(maxX, newVector.y);
+            outputV = new Vector2d(maxX, outputV.y);
         } else if(maxX  < newVector.x ){
-            outputV = new Vector2d(0, newVector.y);
+            outputV = new Vector2d(0, outputV.y);
         }
 
         if (newVector.y < 0) {
-            outputV = new Vector2d(newVector.x, maxY);
+            outputV = new Vector2d(outputV.x, maxY);
         } else if (maxY < newVector.y) {
-            outputV = new Vector2d(newVector.x, 0);
+            outputV = new Vector2d(outputV.x, 0);
         }
 
         System.out.println("strara: " + newVector);

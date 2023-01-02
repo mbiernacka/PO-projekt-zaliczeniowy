@@ -17,11 +17,58 @@ import java.io.IOException;
 public class Dashboard extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("HBox Experiment 1");
+        primaryStage.setTitle("Load parameters");
+
+
+
+
         TextField textField = new TextField();
 
-        Button button = new Button("My Button");
-        VBox menu = new VBox(textField, button);
+        Button exConfig1  = new Button("Start Pre-build Simulation 1");
+        Button exConfig2  = new Button("Start Pre-build Simulation 2");
+
+        Button button = new Button("Start Custom Simulation");
+        VBox menu = new VBox(exConfig1,exConfig2,textField, button);
+
+        exConfig1.setOnAction(new EventHandler() {
+
+            @Override
+            public void handle(Event event) {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        try {
+                            App app = new App();
+                            app.init("src\\main\\resources\\gameSetting.csv");
+                            app.start(new Stage());
+                        } catch (FileNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+            }
+
+
+        });
+        exConfig2.setOnAction(new EventHandler() {
+
+            @Override
+            public void handle(Event event) {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        try {
+                            App app = new App();
+                            app.init("src\\main\\resources\\gameSetting2.csv");
+                            app.start(new Stage());
+                        } catch (FileNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+            }
+
+
+        });
+
         button.setOnAction(new EventHandler() {
 
             @Override
