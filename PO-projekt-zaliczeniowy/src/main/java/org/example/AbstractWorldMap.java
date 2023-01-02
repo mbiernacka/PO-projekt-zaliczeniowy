@@ -56,13 +56,6 @@ public abstract class AbstractWorldMap implements IWorldMap{
         for(Integer i: animal.getGenotype()){
             genotypeString.append(i);
         }
-//        if (this.genotypesCounter.containsKey(Arrays.copyOf(animal.getGenotype(), animal.getGenotype().length))) {
-//            Integer currentNumber = this.genotypesCounter.get(animal.getGenotype());
-//            this.genotypesCounter.put(Arrays.copyOf(animal.getGenotype(), animal.getGenotype().length), currentNumber + 1);
-//        }
-//        else {
-//            this.genotypesCounter.put(Arrays.copyOf(animal.getGenotype(), animal.getGenotype().length), 1);
-//        }
         if (this.genotypesCounter.containsKey(String.valueOf(genotypeString))) {
             System.out.println("W srodku");
             //Integer currentNumber = this.genotypesCounter.get(genotypeString);
@@ -71,7 +64,6 @@ public abstract class AbstractWorldMap implements IWorldMap{
         else {
             this.genotypesCounter.put(String.valueOf(genotypeString), 1);
         }
-
     }
     public void removeDeadAnimalAndMove(){
         ArrayList<Vector2d> keyList = new ArrayList<Vector2d>();
@@ -127,10 +119,11 @@ public abstract class AbstractWorldMap implements IWorldMap{
         return Map.copyOf(this.genotypesCounter);
     }
 
-    public void printGenotypeCounter(){
+    public Map<String , Integer> printGenotypeCounter(){
         for(String key: genotypesCounter.keySet()){
             System.out.println("Genotyp: " + key + "Licznik: " + genotypesCounter.get(key).toString());
         }
+        return this.genotypesCounter;
     }
 }
 

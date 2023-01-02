@@ -2,7 +2,6 @@ package org.example;
 
 import org.example.interfaces.IMapElement;
 
-import java.awt.*;
 
 public class Plant implements IMapElement {
     private final Vector2d position;
@@ -27,6 +26,6 @@ public class Plant implements IMapElement {
 
     @Override
     public String toString(){
-        return "*";
+        return "Plant\n" + this.position.toString();
     }
 }

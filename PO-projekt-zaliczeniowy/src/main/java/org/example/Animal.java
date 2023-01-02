@@ -95,6 +95,9 @@ public class Animal implements IMapElement {
     }
     public void decreaseEnergy(int value){
         this.energy -= value;
+        if(this.energy < 0 ){
+            this.energy = 0;
+        }
     }
 
     public int getAge() {
@@ -111,17 +114,17 @@ public class Animal implements IMapElement {
 
     @Override
     public String toString() {
-        return energy + ",";
-//        return switch (this.orientation){
-//            case NORTH -> "N";
-//            case EAST -> "E";
-//            case SOUTH -> "S";
-//            case WEST -> "W";
-//            case NORTHEAST -> "NE";
-//            case SOUTHEAST -> "SE";
-//            case NORTHWEST -> "NW";
-//            case SOUTHWEST -> "SW";
-//        };
+        //return energy + ",";
+        return switch (this.orientation){
+            case NORTH -> "Animal\nN, " + this.getEnergy() + ", " + this.getAge();
+            case EAST -> "Animal\nE, "+ this.getEnergy() + ", " + this.getAge();
+            case SOUTH -> "Animal\nS, "+ this.getEnergy() + ", " + this.getAge();
+            case WEST -> "Animal\nW, "+ this.getEnergy() + ", " + this.getAge();
+            case NORTHEAST -> "Animal\nNE, "+ this.getEnergy() + ", " + this.getAge();
+            case SOUTHEAST -> "Animal\nSE, "+ this.getEnergy() + ", " + this.getAge();
+            case NORTHWEST -> "Animal\nNW, "+ this.getEnergy() + ", " + this.getAge();
+            case SOUTHWEST -> "Animal\nSW, "+ this.getEnergy() + ", " + this.getAge();
+        };
     }
 
     public boolean isAt(Vector2d position){
