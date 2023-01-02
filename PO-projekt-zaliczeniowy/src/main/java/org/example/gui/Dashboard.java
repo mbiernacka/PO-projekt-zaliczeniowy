@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 
 public class Dashboard extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         primaryStage.setTitle("Load parameters");
 
         TextField textField = new TextField();
